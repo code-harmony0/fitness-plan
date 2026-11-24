@@ -349,7 +349,7 @@ function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+n
 function mondayOf(d){ return addDays(d,-((d.getDay()+6)%7)); }
 function diffDays(a,b){ return Math.round((a-b)/86400000); }
 function nextMonday(){ var t=new Date(); t=new Date(t.getFullYear(),t.getMonth(),t.getDate()); var add=(8-t.getDay())%7; return addDays(t,add); }
-function fresh(){ return {profile:{age:27,weight:82,height:170,about:"desk job"},start:fmt(nextMonday()),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
+function fresh(){ return {profile:{age:27,weight:82,height:170,about:"desk job"},start:fmt(mondayOf(new Date())),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
 var st;
 function load(){
   try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; o.profile=o.profile||{age:27,weight:82,height:170,about:"desk job"}; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
