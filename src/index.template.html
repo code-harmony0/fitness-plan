@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>12-Week Recomp Plan</title>
+<style>@@STYLE@@</style>
+</head>
+<body>
+<!--
+THESIS: A calm daily checklist with a little truck-road personality: readable first, decorative never. It refuses loud contrast, uppercase display type and thick outlines.
+OWN-WORLD: Soft cool-grey ground with white cards, indigo-ink text, one primary indigo; session colours push red, pull blue, legs green, done amber. System sans for all reading, mono for numbers, Bungee only for the brand mark and today's session name. Soft dark theme follows the phone.
+STORY: He opens it, ticks today's exercises with a rest timer, ticks meals, logs his weight, and sees the truck move.
+FIRST VIEWPORT: Slim road card with the truck and flip counters; the session card (coloured header, plain checklist) beside meals, weigh-in, habit and targets in a balanced second column; week strip and measure row below.
+FORM: Refinement of the truck-art world (quieter + layout + typeset). Seed 45cd27e6.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+<div class="wrap">
+<header>
+  <div class="brand"><b>12</b>week recomp</div>
+  <div class="hr"><button type="button" class="ghost sm" id="theme" aria-label="Switch theme: auto, light or dark"></button><div class="stamp" id="stamp"></div></div>
+</header>
+<nav class="dock" id="rail" aria-label="Sections"><a href="#today" data-t="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg><span>today</span></a><a href="#train" data-t="train"><svg viewBox="0 0 24 24"><path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/></svg><span>train</span></a><a href="#eat" data-t="eat"><svg viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8 7c0-1.5 1.5-1.5 1.5-3M13 7c0-1.5 1.5-1.5 1.5-3"/></svg><span>eat</span></a><a href="#progress" data-t="progress"><svg viewBox="0 0 24 24"><path d="M3.5 3.5v17h17"/><path d="M7 15l4-5 3 3 5-7"/></svg><span>progress</span></a><a href="#guide" data-t="guide"><svg viewBox="0 0 24 24"><path d="M5 3.5h14v17H5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>guide</span></a></nav>
+
+<main>
+<div id="storebanner" class="banner" hidden>This browser is blocking saved data, so ticks and measurements will be lost when you close the page. Use Progress, then Export, before you leave.</div>
+
+<!-- TODAY -->
+<section class="view" id="v-today" aria-label="Today"></section>
+
+<!-- TRAIN -->
+<section class="view" id="v-train" aria-label="Train">
+  <div class="head"><h2>Train</h2><p>Six sessions a week, every muscle twice. Pick a week, pick a day, tick exercises as you go. Wrecked or sleeping badly? Skip Saturday and run 5 days that week.</p></div>
+  <div class="card tl"><div class="tlhd"><h3>12-week program</h3><span class="small mute">Bars show sessions done. Tap a week.</span></div><div class="tlbars" id="tl"></div><div class="tlph" id="tlph"></div></div>
+  <div class="plan2">
+    <div class="weekcol">
+      <div class="wknav"><button type="button" class="ghost sm" id="wkprev" data-wkstep="-1"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Prev</button><div class="wkt"><b id="wktitle"></b><span id="wksub"></span></div><button type="button" class="ghost sm" id="wknext" data-wkstep="1">Next<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="weeklist" id="weeklist"></div>
+      <div class="startrow">
+        <div><label for="startdate">Week 1 starts (any date, snaps to Monday)</label><input type="date" id="startdate"></div>
+      </div>
+
+    </div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </div>
+  <div class="sec"><h3 id="voltitle">Sets per muscle</h3><div class="card vm" id="vol"></div><p class="small mute volnote">Direct sets only. Presses and rows also work other muscles, and glutes also get work from squats and deadlifts. Tap a muscle to see which exercises count. The ACSM 2026 reference of about 10 sets per muscle per week comes from summaries, not the full paper.</p></div>
+  <div class="sec"><h3>How to add weight</h3><div class="swap swapbox plate">
+        <div><span>Pick a weight that leaves 1–3 reps in the tank</span><span>effort</span></div>
+        <div><span>Add 1 rep to each set, every session</span><span>reps</span></div>
+        <div><span>Every set at the top of the range? Add the smallest weight step, then restart at the bottom</span><span>weight</span></div>
+        <div><span>Stuck two sessions in a row? Drop the weight about 10% and build back</span><span>reset (coach practice)</span></div></div>
+        <p class="small mute" style="margin-top:10px">Steps: about 1–2 kg for upper body, 2.5–5 kg for legs. Lower the weight over 2 seconds. Stop a set when your form breaks.</p></div>
+
+</section>
+
+<!-- EAT -->
+<section class="view" id="v-eat" aria-label="Eat">
+  <div class="head"><h2>One normal Indian day</h2><p>About 2,100 kcal and 140 g protein. Same on rest days. Oil is the usual error, so measure the teaspoon. Six lifting days burn a bit more than my estimate assumed, so keep 2,100 and let Progress tell you.</p></div>
+  <div class="eatsum" id="eatsum"></div>
+  <div class="two">
+    <div class="card"><h3>Where the calories come from</h3>
+      <div class="stack" id="stack" role="img" aria-label="Calories split: protein, carbs, fat"></div>
+      <div class="keys" id="keys"></div>
+      <div class="total mono" id="total"></div>
+      <p class="small mute">Protein target is 140–150 g, 1.7–1.8 g per kg. Values are my estimates from standard tables, not lab data. Weigh rice and chicken for two weeks, then eyeball.</p>
+    </div>
+    <div id="meals"></div>
+  </div>
+  <div class="sec two">
+    <div><h3>Protein anchors</h3><div id="anch"></div>
+      <p class="small mute" style="margin-top:10px">Grams of protein per portion, from my estimates. The line is 35 g, about what each main meal should reach.</p></div>
+    <div><h3>Off-plan meal? Three rules</h3><div class="swap plain swapbox plate">
+      <div><span>Do not skip the next meal to make up for it. Eat the next planned meal.</span></div>
+      <div><span>Protein first: pick the protein dish, then fill the plate.</span></div>
+      <div><span>Tick it as it was. One off meal moves nothing. Hiding it breaks the habit of tracking.</span></div></div>
+      <p class="small mute" style="margin-top:10px">Coaching practice, not a study.</p></div>
+  </div>
+  <div class="sec two">
+    <div>
+      <h3>Swap so you don't repeat</h3>
+      <div class="swap swapbox plate">
+        <div><span>Fish, 150 g raw, instead of chicken</span><span>210 kcal · 25 g P</span></div>
+        <div><span>Egg curry, 4 eggs</span><span>~350 kcal · 26 g P</span></div>
+        <div><span>Soya chunks, 60 g raw, in curry</span><span>~270 kcal · 31 g P</span></div>
+        <div><span>Paneer, 100 g (high fat)</span><span>~265 kcal · 18 g P</span></div>
+        <div><span>Poha plate + 2 boiled eggs + milk</span><span>~580 kcal · 26 g P</span></div>
+        <div><span>150 g cooked rice = 2 rotis</span><span>195 vs 210 kcal</span></div>
+        <div><span>Pre: 150 g curd + banana + chana</span><span>~290 kcal · 11 g P</span></div>
+      </div>
+    </div>
+    <div>
+      <h3>Supplements</h3>
+      <div class="swap swapbox plate">
+        <div><span>Creatine monohydrate, 3–5 g a day</span><span>optional</span></div>
+        <div><span>Whey</span><span>not needed</span></div>
+        <div><span>BCAAs, fat burners, testosterone boosters, mass gainers</span><span>skip</span></div>
+      </div>
+      <p class="small mute" style="margin-top:10px">Creatine can add about 1 kg of water weight early. Judge progress by your belly, not that kilo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section class="view" id="v-progress" aria-label="Progress">
+  <div class="head"><h2>Progress</h2><p>Your numbers, your weekly check-in, and your log. Saved in this browser only. Phone and laptop each keep their own copy; move data with Export and Import.</p></div>
+  <div class="seg" role="tablist" aria-label="Progress sections">
+    <button type="button" role="tab" data-psub="charts" aria-selected="true">Charts</button>
+    <button type="button" role="tab" data-psub="checkin" aria-selected="false">Weekly check-in</button>
+    <button type="button" role="tab" data-psub="log" aria-selected="false">Log and backup</button>
+  </div>
+  <div class="gp on" id="p-charts"><div class="charts" id="charts"></div><div class="sec"><h3>Since baseline</h3><div class="tw" id="deltas"></div></div></div>
+  <div class="gp" id="p-checkin"><div id="checkin"></div><div id="advice" style="margin-top:16px"></div></div>
+  <div class="gp" id="p-log"><div class="sec">
+    <h3>Add a measurement</h3>
+    <form id="form" class="form" novalidate>
+      <div class="wide"><label for="f-date">Date</label><input type="date" id="f-date" required></div>
+      <div><label for="f-weight">Weight kg</label><input id="f-weight" type="number" inputmode="decimal" step="0.1" placeholder="82.0"></div>
+      <div><label for="f-belly">Belly in</label><input id="f-belly" type="number" inputmode="decimal" step="0.25" placeholder="40"></div>
+      <div><label for="f-waist">Narrow waist in</label><input id="f-waist" type="number" inputmode="decimal" step="0.25"></div>
+      <div><label for="f-chest">Chest in</label><input id="f-chest" type="number" inputmode="decimal" step="0.25"></div>
+      <div><label for="f-shoulders">Shoulders in</label><input id="f-shoulders" type="number" inputmode="decimal" step="0.25"></div>
+      <div><label for="f-biceps">Biceps in</label><input id="f-biceps" type="number" inputmode="decimal" step="0.25"></div>
+      <div><label for="f-thigh">Thigh in</label><input id="f-thigh" type="number" inputmode="decimal" step="0.25"></div>
+      <div><label for="f-note">Note</label><input id="f-note" type="text" maxlength="80" placeholder="optional"></div>
+      <div class="wide row"><button class="pri" type="submit">Save entry</button><span class="small mute">Fill only what you measured. Saving the same date updates that day.</span></div>
+    </form>
+    <div class="err" id="err" role="alert"></div>
+  </div>
+  <div class="sec">
+    <h3>How often, and how</h3>
+    <details><summary>Schedule</summary><div class="inner small"><div class="swap swapbox plate">
+      <div><span>Weight: morning, after the toilet, before food</span><span>daily, use the weekly average</span></div>
+      <div><span>Belly</span><span>weekly</span></div>
+      <div><span>Narrow waist, chest, shoulders, biceps, thigh</span><span>every 4 weeks</span></div>
+      <div><span>Photos: front, side, back, same light (keep them in your gallery)</span><span>every 4 weeks</span></div></div></div></details>
+    <details><summary>Measuring each one</summary><div class="inner small"><div class="swap swapbox plate">
+      <div><span><b>Belly</b>: midway between lowest rib and top of hip bone, just above the navel. Breathe out, don't suck in.</span></div>
+      <div><span><b>Narrow waist</b>: the narrowest point of the trunk. Same posture each time.</span></div>
+      <div><span><b>Chest</b>: under the armpits, across the nipples, tape level, breathe out.</span></div>
+      <div><span><b>Shoulders</b>: around the widest point over the deltoids. Get help to keep the tape level.</span></div>
+      <div><span><b>Biceps</b>: right arm, flexed to 90°, at the peak. Same method every time.</span></div>
+      <div><span><b>Thigh</b>: standing, halfway between hip crease and kneecap.</span></div></div></div></details>
+  </div>
+  <div class="sec"><h3>Entries</h3><div class="log" id="log"></div></div>
+  <div class="sec">
+    <h3>Back up and move data</h3>
+    <p class="small mute" style="margin-bottom:12px">Export a file now and then. To use another device, export here and import there.</p>
+    <div class="row">
+      <button id="exp" type="button">Export file</button>
+      <button id="imp" type="button" class="ghost">Import file</button>
+      <input type="file" id="impfile" accept="application/json,.json" hidden>
+      <button id="reset" type="button" class="ghost">Erase everything</button>
+    </div>
+    <div class="err" id="dataerr" role="status"></div>
+  </div>
+</div>
+</section>
+
+<!-- GUIDE -->
+<section class="view" id="v-guide" aria-label="Guide">
+  <div class="head"><h2>The guide</h2><p>What decides results, the apps to use, and the evidence behind it.</p></div>
+  <div class="seg" role="tablist" aria-label="Guide sections">
+    <button type="button" role="tab" data-sub="matters" aria-selected="true">What matters</button>
+    <button type="button" role="tab" data-sub="apps" aria-selected="false">Apps</button>
+    <button type="button" role="tab" data-sub="proof" aria-selected="false">Evidence</button>
+  </div>
+  <div class="gp on" id="g-matters"></div>
+  <div class="gp" id="g-apps">
+
+  <h3>1. Track your lifts</h3>
+  <div class="app"><div><span class="verdict use">TRY FIRST</span><h3>Liftosaur</h3></div><div>
+    <div class="facts"><span><b>4.77</b> ★</span><span><b>1.2K</b> ratings</span><span>updated 16 Nov 2026</span></div>
+    <p>Free and open source. You write the plan once, and it works out the next weight for you from what you lifted. Built-in programs include 5/3/1 and GZCLP.</p>
+    <ul><li>Its own site shows a lifetime paid option. Users say the free version works, but I could not find the free limits on an official page.</li><li>Takes about 15 minutes to enter 6 sessions. If it blocks you before all 6 are saved, use FitNotes.</li></ul>
+    <p class="small"><a href="https://play.google.com/store/apps/details?id=com.liftosaur.www.twa">Google Play</a> · <a href="https://github.com/astashov/liftosaur">source on GitHub</a> · <a href="https://www.liftosaur.com/">site</a></p></div></div>
+  <div class="app"><div><span class="verdict use">FALLBACK</span><h3>FitNotes</h3></div><div>
+    <div class="facts"><span><b>4.93</b> ★</span><span><b>31.7K</b> ratings</span><span>updated 24 Oct 2025</span></div>
+    <p>Simplest logger. Weight and reps, progress charts, body measurements. Official site: "Free to use and no ads - ever". Android only. No auto-progression.</p>
+    <ul><li>Not updated in over a year. Check it runs well on your phone.</li></ul>
+    <p class="small"><a href="https://play.google.com/store/apps/details?id=com.github.jamesgay.fitnotes">Google Play</a> · <a href="https://www.fitnotesapp.com">official site</a></p></div></div>
+  <div class="app"><div><span class="verdict skip">SKIP</span><h3>Hevy</h3></div><div>
+    <div class="facts"><span><b>4.85</b> ★</span><span><b>292K</b> ratings</span><span>updated 14 Nov 2026</span></div>
+    <p>Polished, but the free tier allows 4 routines and your plan has 6. Its help centre also limits free body measurements to weight and waist.</p>
+    <p class="small"><a href="https://help.hevyapp.com/hc/en-us/articles/35119778922263-Hevy-Pro-Subscription-How-to-get-Pro-and-What-Does-It-Include">Hevy help centre</a></p></div></div>
+  <h3 style="margin-top:22px">Day-1 test for the workout app</h3>
+  <div class="tw"><table class="tbl test" id="wtest"></table></div>
+
+  <div class="sec"><h3>2. Log food with the camera</h3>
+  <div class="callout"><b>Read this first.</b> Photo calorie estimates are rough. Studies find wide errors, worst on big portions and mixed dishes, and I found none that tested Indian food. Hidden oil in a curry is the biggest miss. Use the camera for meals you did not cook. Your own plan meals do not need a photo.</div>
+  <p class="mute" style="max-width:64ch;margin-bottom:12px">The big apps keep the camera behind a paywall: MyFitnessPal Meal Scan and Lose It Snap It are paid in the 2026 sources I found. I could not confirm that inside the apps. These are the ones that look free or close to it.</p>
+  <div class="tw"><table class="tbl atbl"><thead><tr><th>App</th><th>Play rating</th><th>Updated</th><th>What I found</th></tr></thead><tbody>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=com.calplus.app">Cal Plus</a></td><td>4.66 · 4.5K</td><td>14 Nov 2026</td><td>Shows ads. Its maker says photo scans have no daily limit and no premium tier. Maker's claim only.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=app.platelens.app">PlateLens</a></td><td>4.57 · 1.6K</td><td>22 Oct 2026</td><td>Several promotional sites say 3 free AI scans a day, then paid. 10K+ downloads.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=com.fatsecret.android">FatSecret</a></td><td>4.54 · 548.8K</td><td>19 Nov 2026</td><td>Free manual food diary. Photo scanning not verified. Some features paid, not confirmed which.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=com.healthifyme.basic">Healthify</a></td><td>4.42 · 568.5K</td><td>18 Nov 2026</td><td>Vendor blogs say best Indian dish list. Photo log tier and Pro price are unconfirmed.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=ai.calzen.caloriecounter">CalZen</a></td><td>4.35 · 198K</td><td>17 Nov 2026</td><td>AI photo tracker. I did not check its free terms.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=com.appediet.appediet">Appediet</a></td><td>4.47 · 127.5K</td><td>12 Nov 2026</td><td>AI calorie counter. I did not check its free terms.</td></tr>
+    <tr><td><a href="https://play.google.com/store/apps/details?id=com.clearcals.hint">Hint</a></td><td>4.04 · 1.4K</td><td>20 Sep 2026</td><td>Its maker claims ICMR-NIN food data and free workouts. Only source, small rating base.</td></tr>
+    <tr><td>SnapCalorie</td><td>not found on Play India</td><td></td><td>One source says 3 free AI logs a day, citing its FAQ. Cal AI has no permanent free tier per a review.</td></tr>
+  </tbody></table></div>
+  <p class="small mute" style="margin-top:8px">Open source options (OpenNutriTracker, wger) use Open Food Facts and have no Indian-dish camera. Cronometer shows ads and gets poor Indian-food reports.</p>
+  <h3 style="margin-top:22px">The 5-dish test</h3>
+  <p class="mute" style="margin-bottom:12px;max-width:62ch">Log these dishes, photo or text. Tick a box when the app lands within 15% of the plan value. Keep the app with 4 or more, and where you can save your own recipe.</p>
+  <div class="tw"><table class="tbl test" id="test"></table></div></div>
+
+  <div class="sec"><h3>3. Meal plans: use a free AI chat</h3>
+  <p class="mute" style="max-width:64ch">I found no free app that makes good Indian meal plans. The paid coaching in Healthify-type apps is the main product there. A free AI chat app can do it if you give it your numbers. Check its totals, because it can add up wrong.</p>
+  <details open><summary>Prompt: a 7-day Indian meal plan</summary><div class="inner">
+    <div class="prompt" id="pr1">Make me a 7-day Indian home-food meal plan.
+About me: man, 27, 82 kg, 170 cm, desk job, lifting 6 days a week, losing belly fat and building muscle.
+Daily target: 2,100 kcal, 140 to 150 g protein, about 235 g carbs, about 65 g fat.
+I eat: eggs, chicken, fish, dal, rice, roti, sabzi, curd, milk, soya chunks, paneer, fruit. No whey.
+Four meals: breakfast, lunch, a 5:15 pm pre-workout snack, and an 8:30 pm dinner.
+For every meal give gram weights (say raw or cooked), then kcal, protein, carbs and fat. Add up each day and keep it within 50 kcal and 5 g protein of target.
+Use 1 teaspoon of oil per curry or sabzi. Do not repeat the same lunch or dinner two days in a row.
+End with a grocery list for the week.</div>
+    <button type="button" class="pri" data-copy="pr1">Copy prompt</button></div></details>
+  <details><summary>Prompt: estimate a meal from a photo</summary><div class="inner">
+    <div class="prompt" id="pr2">This is a photo of my meal. Estimate calories, protein, carbs and fat.
+Give a low and a high range, not one number.
+Tell me which part you are least sure about (oil, portion size, hidden ingredients) and ask me one question that would narrow it down.
+What I know: [for example: rice about 150 g cooked, 1 tsp oil in the curry, 2 rotis]</div>
+    <button type="button" class="pri" data-copy="pr2">Copy prompt</button></div></details>
+  <p class="small mute" style="margin-top:12px">Studies of AI photo estimates: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12513282/">three large language models tested on food images</a>. Giving the portion weights in the prompt is the easiest way to cut the error.</p></div>
+</div>
+  <div class="gp" id="g-proof">
+  <div class="tier"><h3>Backed by studies</h3><ul>
+    <li>Train each muscle about twice a week (<a href="https://link.springer.com/10.1007/s40279-016-0543-8">2016 meta-analysis</a>). Six-day Push/Pull/Legs does this. So does a 4-day Upper/Lower. When weekly sets are equal, extra training days add little (<a href="https://mennohenselmans.com/training-frequency-2018-meta-analysis-review/">2019 review</a>). Six days buys shorter sessions and the routine you wanted, not extra muscle by itself.</li>
+    <li>About 10 sets per muscle per week for growth. <a href="https://acsm.org/resistance-training-guidelines-update-2026/">ACSM 2026</a>, which I read through summaries, not the full paper.</li>
+    <li>Protein 1.4–2.0 g per kg (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/">ISSN</a>). Creatine 3–5 g a day is safe in healthy adults (<a href="https://link.springer.com/10.1186/s12970-017-0173-z">ISSN</a>).</li>
+    <li>Self-monitoring, motivational interviewing and sleep: tracking and sticking with a plan is linked to more weight loss (<a href="https://pubmed.ncbi.nlm.nih.gov/21185970/">Burke 2011</a>, weak evidence). Motivational interviewing improves adherence (<a href="https://www.cdrnet.org/vault/2459/web/files/Spahn%202010.pdf">Spahn 2010</a>). Short sleep cut fat loss in a very small study (<a href="https://www.paulogentil.com/pdf/Insufficient%20Sleep%20Undermines%20Dietary%20Efforts%20to%20Reduce%20Adiposity.pdf">Nedeltcheva 2010</a>). Details in What matters.</li>
+    <li>AI photo calorie estimates have wide error, worst on big portions and mixed dishes (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12513282/">study of three models</a>). I found none tested on Indian food.</li>
+    <li>Measure the waist midway between rib and hip bone; keep waist under half your height (<a href="https://www.nice.org.uk/guidance/NG246/chapter/identifying-and-assessing-overweight-obesity-and-central-adiposity">NICE</a>). 90 cm is the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3944886/">South Asian screening line</a>, not a diagnosis.</li></ul></div>
+  <div class="tier"><h3>Community reports</h3><ul>
+    <li>The <a href="https://thefitness.wiki/routines/strength-training-muscle-building/">r/Fitness wiki</a> says beginners do best on simple, compound-focused routines they can add weight to, 3–4 lifting days, some cardio kept in, and "bigger and stronger overlap".</li>
+    <li>A well-known Reddit beginner routine, Metallicadpa's PPL, is 6 days with steady weight increases. Jefit copies of it say so; I did not find the original thread, so treat that as a pointer, not proof.</li><li>This plan leans on machines. Ask your trainer to teach dumbbell and barbell basics too.</li></ul></div>
+  <div class="tier"><h3>My judgement</h3><ul>
+    <li>The weekly check-in rules (one habit at a time, fix habits before calories, wait about 3 weeks of data) are my judgement, modelled on coaching practice, not a tested protocol.</li>
+    <li>Six lifting days from week 1 is your choice, not something the research asks of a beginner. The 2-sets-first ramp, the Saturday skip rule, 2,100 kcal, the step ramp, the exercise picks and the week-8 recovery week are my judgement. Adjust from your own data.</li>
+    <li>All food values are estimates. The 12-week results below are not promises.</li>
+    <li>Removed after review because they had no source: "strength doubles" and "25–28% body fat".</li></ul></div>
+  <div class="tier"><h3>Where you start</h3><ul>
+    <li>Belly 101.6 cm (40 in). Waist ÷ height is 0.60; NICE says under 0.5, about 85 cm for you.</li>
+    <li>Estimated after 12 weeks: belly 37.5–38.5 in, weight down 3–5 kg. Reaching 85 cm takes longer.</li>
+    <li>Calories: BMR 1,750 × 1.4 = 2,450 maintenance, minus 15% = about 2,100.</li></ul></div>
+  <div class="sec"><h3>Sources</h3>
+  <ul class="src">
+    <li><a href="https://link.springer.com/10.1007/s40279-016-0543-8">Schoenfeld 2016, training frequency</a></li>
+    <li><a href="https://mennohenselmans.com/training-frequency-2018-meta-analysis-review/">Henselmans on the 2019 meta-analysis</a></li>
+    <li><a href="https://acsm.org/resistance-training-guidelines-update-2026/">ACSM 2026 resistance training update</a></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/">ISSN protein position stand</a></li>
+    <li><a href="https://link.springer.com/10.1186/s12970-017-0173-z">ISSN creatine position stand</a></li>
+    <li><a href="https://www.nice.org.uk/guidance/NG246/chapter/identifying-and-assessing-overweight-obesity-and-central-adiposity">NICE NG246, waist method</a></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3944886/">South Asian waist cut-points</a></li>
+    <li><a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity">WHO physical activity</a> (not re-checked in this session)</li>
+    <li><a href="https://thefitness.wiki/routines/strength-training-muscle-building/">r/Fitness wiki: routines</a></li>
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/21185970/">Burke 2011, self-monitoring review</a>, <a href="https://www.cdrnet.org/vault/2459/web/files/Spahn%202010.pdf">Spahn 2010, counselling review</a>, <a href="https://www.ncbi.nlm.nih.gov/sites/books/NBK618378/">StatPearls on motivational interviewing</a></li>
+    <li><a href="https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit">Lally 2010, habit formation (summary)</a>, <a href="https://www.nsca.com/education/articles/nsca-coach/using-intensity-based-on-sets-and-repetitions-over-50-years-of-experience-a-brief-overview-of-load-setting-and-programming-strategy/">NSCA on reps in reserve</a></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12513282/">LLM food-photo estimates</a>, <a href="https://github.com/astashov/liftosaur">Liftosaur</a></li>
+    <li><a href="https://www.fitnotesapp.com">FitNotes</a>, <a href="https://help.hevyapp.com/hc/en-us/articles/35119778922263-Hevy-Pro-Subscription-How-to-get-Pro-and-What-Does-It-Include">Hevy help</a>, Google Play listings for each app</li>
+  </ul></div>
+  <footer>Not medical advice. Stop and see a doctor for chest pain, dizziness or sharp joint pain.</footer>
+</div>
+</section>
+</main>
+</div>
+<div id="timer" hidden role="timer"><div class="tmwrap"><i id="tmbar"></i></div><div class="tmrow"><span id="tmlabel"></span><b id="tmtime">0:00</b><button type="button" data-tm="30">+30s</button><button type="button" data-tm="stop">Stop</button></div></div>
+
+<script>
+(function(){
+"use strict";
+/* ============ data ============ */
+var DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], DS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+var S={
+ PUA:{name:"Push A",focus:"Chest focus",cls:"P",cardio:false,items:[
+  ["Machine chest press",3,"8–12","2 min","Chest","Push-ups or dumbbell bench",0,"chest"],
+  ["Incline dumbbell press",3,"8–12","2 min","Upper chest","Incline machine press",1,"chest"],
+  ["Seated dumbbell shoulder press",3,"8–12","2 min","Shoulders","Machine shoulder press",0,"shoulders"],
+  ["Cable lateral raise",3,"12–15","1 min","Side shoulders","Dumbbell lateral raise",1,"shoulders"],
+  ["Triceps rope pushdown",3,"10–15","1 min","Triceps","Bench dips",0,"triceps"],
+  ["Overhead cable triceps extension",3,"10–12","1 min","Triceps","Dumbbell overhead extension",0,"triceps"]]},
+ PLA:{name:"Pull A",focus:"Back width focus",cls:"Q",cardio:true,items:[
+  ["Lat pulldown, wide grip",3,"8–12","2 min","Back width","Assisted pull-up",0,"back"],
+  ["Seated cable row",3,"8–12","2 min","Mid-back","Chest-supported dumbbell row",0,"back"],
+  ["Face pull",2,"15","1 min","Rear shoulders","Reverse pec deck",0,"shoulders"],
+  ["Incline dumbbell curl",3,"10–12","1 min","Biceps","Cable curl",0,"biceps"],
+  ["Hammer curl",3,"10–12","1 min","Biceps, forearms","Rope cable curl",0,"biceps"]]},
+ LGA:{name:"Legs A",focus:"Quads focus",cls:"L",cardio:false,items:[
+  ["Leg press",3,"10–12","2 min","Quads, glutes","Goblet squat",0,"quads"],
+  ["Dumbbell Romanian deadlift",3,"8–12","2 min","Hamstrings, glutes","Back extension",0,"hams"],
+  ["Leg extension",3,"12–15","1 min","Quads","Bodyweight split squat",0,"quads"],
+  ["Lying leg curl",3,"10–12","1.5 min","Hamstrings","Seated leg curl",0,"hams"],
+  ["Standing calf raise",3,"12–15","1 min","Calves","Calf raise on leg press",0,"calves"],
+  ["Cable crunch",3,"12–15","1 min","Abs","Plank, 30–45 s",0,"abs"]]},
+ PUB:{name:"Push B",focus:"Shoulders focus",cls:"P",cardio:false,items:[
+  ["Machine shoulder press",3,"8–12","2 min","Shoulders","Seated dumbbell shoulder press",0,"shoulders"],
+  ["Dumbbell bench press",3,"8–12","2 min","Chest","Machine chest press",0,"chest"],
+  ["Pec deck fly",3,"12–15","1 min","Chest","Cable fly",0,"chest"],
+  ["Dumbbell lateral raise",3,"12–15","1 min","Side shoulders","Cable lateral raise",0,"shoulders"],
+  ["Skull crusher or overhead extension",3,"10–12","1 min","Triceps","Bench dips",0,"triceps"],
+  ["Triceps rope pushdown",2,"12–15","1 min","Triceps","Bench dips",0,"triceps"]]},
+ PLB:{name:"Pull B",focus:"Back thickness focus",cls:"Q",cardio:true,items:[
+  ["Chest-supported row",3,"8–12","2 min","Back thickness","One-arm dumbbell row",0,"back"],
+  ["Neutral-grip lat pulldown",3,"8–12","2 min","Lats","Assisted pull-up",0,"back"],
+  ["One-arm dumbbell row",2,"10–12 each","1.5 min","Back","Seated cable row",0,"back"],
+  ["Reverse pec deck",2,"15","1 min","Rear shoulders","Face pull",0,"shoulders"],
+  ["Cable curl",3,"10–12","1 min","Biceps","Dumbbell curl",0,"biceps"]]},
+ LGB:{name:"Legs B",focus:"Hamstrings and glutes focus",cls:"L",cardio:true,items:[
+  ["Hip thrust",3,"8–12","2 min","Glutes","Glute bridge",0,"glutes"],
+  ["Hack squat or goblet squat",3,"8–12","2 min","Quads","Leg press",0,"quads"],
+  ["Seated leg curl",3,"10–15","1.5 min","Hamstrings","Lying leg curl",0,"hams"],
+  ["Dumbbell step-up or split squat",2,"10 each leg","1.5 min","Legs","Walking lunge",0,"quads"],
+  ["Seated calf raise",3,"12–15","1 min","Calves","Standing calf raise",0,"calves"],
+  ["Plank",3,"30–45 s","1 min","Abs","Hanging knee raise",0,"abs"]]},
+ RS:{name:"Rest",focus:"Recover",cls:"R",items:[]}
+};
+function sched(w,d){ return [ "PUA","PLA","LGA","PUB","PLB","LGB","RS" ][d]; }
+function cap(w){ return w<=2?2 : w===8?2 : w<=7?3 : 4; }
+function effort(w){ return w<=2?"Easy: stop 3–4 reps before failure." : w===8?"Recovery week: lighter weights, same moves." : "Stop 1–3 reps before failure."; }
+function phase(w){ return w<=2?"weeks 1–2 · learn · 2 sets": w<=7?"weeks 3–7 · build · 3 sets": w===8?"week 8 · recover":"weeks 9–12 · build · 4th set on laggers"; }
+function stepsFor(w){ return w<=2?6000: w<=4?7500: 8000; }
+var MEALS=[
+ {n:"Breakfast",t:"8–9 am",p:36.6,c:52.8,f:22,k:566,l:["2 whole eggs + 3 whites bhurji, 1 tsp oil","2 rotis, 40 g atta each, no ghee","Toned milk, 200 ml"]},
+ {n:"Lunch",t:"1 pm, then walk 10 min",p:52.2,c:77.4,f:17.5,k:680,l:["Cooked rice, 150 g","Dal, 1 katori (150 g cooked)","Chicken curry: 150 g raw breast, 1 tsp oil","Onion-cucumber salad 100 g, curd 100 g"]},
+ {n:"Pre-workout",t:"5:15 pm",p:13,c:40.4,f:6.6,k:270,l:["1 banana","Roasted chana, 30 g","1 boiled egg"]},
+ {n:"Dinner",t:"8:30 pm, then walk 10 min",p:39.7,c:63.6,f:22.4,k:610,l:["Fish curry: 150 g raw rohu, 1 tsp oil","2 rotis","Mixed sabzi, 150 g, 1 tsp oil","Curd, 150 g"]}
+];
+var DISHES=["Dal, 150 g cooked (~150 kcal)","Roti, 40 g atta (~105 kcal)","Chicken curry, 150 g raw (~255 kcal)","Egg bhurji, 2 eggs + 1 tsp oil (~190 kcal)","Curd, 150 g (~90 kcal)"];
+var APPS=["FatSecret","Healthify","Cal Plus","PlateLens"];
+var WT=["All 6 sessions saved, no paywall popup","Logs sets with no signal","Shows last session's weights next time"];
+var popKey=null;
+
+/* ============ state + storage ============ */
+var KEY="recomp12.v2", mem=null, canStore=true;
+function todayStr(){ var d=new Date(); return fmt(d); }
+function fmt(d){ var m=d.getMonth()+1, dd=d.getDate(); return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(dd<10?"0":"")+dd; }
+function parse(s){ var a=s.split("-"); return new Date(+a[0],+a[1]-1,+a[2]); }
+function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+n); return x; }
+function mondayOf(d){ return addDays(d,-((d.getDay()+6)%7)); }
+function diffDays(a,b){ return Math.round((a-b)/86400000); }
+function nextMonday(){ var t=new Date(); t=new Date(t.getFullYear(),t.getMonth(),t.getDate()); var add=(8-t.getDay())%7; return addDays(t,add); }
+function fresh(){ return {start:fmt(nextMonday()),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
+var st;
+function load(){
+  try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
+  catch(e){ canStore=false; }
+  return fresh();
+}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){ canStore=false; document.getElementById("storebanner").hidden=false; } }
+st=load();
+try{ localStorage.setItem("__t","1"); localStorage.removeItem("__t"); }catch(e){ canStore=false; document.getElementById("storebanner").hidden=false; }
+if(canStore){ try{ if(!localStorage.getItem(KEY)) save(); }catch(e){} }
+
+function startMon(){ return mondayOf(parse(st.start)); }
+function where(){ // today's place in the plan
+  var diff=diffDays(new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()),startMon());
+  if(diff<0) return {state:"before",days:-diff};
+  var w=Math.floor(diff/7)+1; if(w>12) return {state:"after"};
+  return {state:"in",w:w,d:diff%7};
+}
+function key(w,d){ return w+"-"+d; }
+var sel=null;
+
+/* ============ helpers ============ */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function dateLabel(s){ var d=parse(s); return DS[(d.getDay()+6)%7]+" "+d.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]; }
+function n1(x){ return (Math.round(x*10)/10).toFixed(1); }
+function n2(x){ return String(parseFloat((Math.round(x*100)/100).toFixed(2))); }
+function dm(d){ return d.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]; }
+function planned(w){ var c=0; for(var d=0;d<7;d++){ if(countable(sched(w,d))) c++; } return c; }
+function countable(s){ return s!=="RS"; }
+
+/* ============ helpers: rest, stats, eaten, theme, copy ============ */
+function restSec(s){ return Math.round(parseFloat(s)*60)||60; }
+var FL={}, lastP=0, LAB={P:"PSH",Q:"PUL",L:"LEG",R:""};
+function pad(n){ return (n<10?"0":"")+n; }
+function flap(id,str){
+  var prev=FL[id]; FL[id]=str; var h='<span class="flaps" role="text" aria-label="'+esc(str)+'">';
+  for(var i=0;i<str.length;i++){ var ch=str.charAt(i), chg=(prev===undefined)||prev.charAt(i)!==ch; h+='<i class="fc'+(chg?' go':'')+'" style="--k:'+i+'" aria-hidden="true">'+esc(ch)+'</i>'; }
+  return h+'</span>';
+}
+var TRUCK='<svg viewBox="0 0 120 64" aria-hidden="true"><g stroke="#120A2E" stroke-width="3" stroke-linejoin="round"><rect x="4" y="8" width="80" height="38" rx="5" fill="#C81D12"/><rect x="11" y="15" width="66" height="24" rx="3" fill="#FFC400"/><path d="M84 20h18l14 14v12H84z" fill="#2D55E8"/><path d="M91 25h9l8 9H91z" fill="#FFF4D6" stroke-width="2"/><rect x="108" y="44" width="10" height="6" fill="#120A2E"/></g><g fill="#14A44D" stroke="#120A2E" stroke-width="2"><circle cx="24" cy="27" r="4.5"/><circle cx="44" cy="27" r="4.5"/><circle cx="64" cy="27" r="4.5"/></g><g stroke="#120A2E" stroke-width="3"><circle cx="26" cy="52" r="9" fill="#120A2E"/><circle cx="96" cy="52" r="9" fill="#120A2E"/></g><circle cx="26" cy="52" r="3.5" fill="#FFF4D6"/><circle cx="96" cy="52" r="3.5" fill="#FFF4D6"/></svg>';
+function stats(){
+  var tot=0,done=0,w,d; for(w=1;w<=12;w++){ for(d=0;d<7;d++){ if(countable(sched(w,d))){ tot++; if(st.done[key(w,d)]) done++; } } }
+  var p=where(), streak=0;
+  if(p.state==="in"){ var idx=(p.w-1)*7+p.d; for(var i=idx;i>=0;i--){ var ww=Math.floor(i/7)+1, dd=i%7; if(!countable(sched(ww,dd))) continue; if(st.done[key(ww,dd)]) streak++; else if(i===idx) continue; else break; } }
+  return {tot:tot,done:done,streak:streak};
+}
+function roadHTML(cur){
+  var sx=stats(), pct=sx.done/sx.tot*100, flags="";
+  for(var w=1;w<=12;w++) flags+='<i class="fg'+(w===cur?' cur':'')+'" style="left:'+(w/12*100)+'%"><b>'+w+'</b></i>';
+  return '<div class="road"><div class="roadhd"><span class="rt">Road to week 12</span>'+flap("sess",pad(sx.done)+"/"+sx.tot)+'</div>'+
+    '<div class="lane" role="img" aria-label="'+sx.done+' of '+sx.tot+' sessions done">'+flags+'<div class="asphalt"></div><div class="truck" data-p="'+pct.toFixed(2)+'" style="--p:'+lastP+'">'+TRUCK+'</div></div>'+
+    '<div class="roadft"><span>streak '+flap("streak",pad(sx.streak))+'</span><span>week '+flap("wk",pad(cur))+' of 12</span></div></div>';
+}
+function nextHTML(w,d){
+  var idx=(w-1)*7+d;
+  for(var i=idx+1;i<84;i++){ var ww=Math.floor(i/7)+1, dd=i%7, id=sched(ww,dd); if(countable(id)) return '<p class="note">Next: '+DAYS[dd]+', '+esc(S[id].name)+'.</p>'; }
+  return '';
+}
+function eaten(){
+  var e=st.eat[todayStr()]||{}, k=0, pp=0; MEALS.forEach(function(m,i){ if(e[i]){ k+=m.k; pp+=m.p; } });
+  return {k:k,p:pp};
+}
+function eatBlock(){
+  var e=eaten(), T=0, TP=0; MEALS.forEach(function(m){ T+=m.k; TP+=m.p; });
+  return '<div class="mono" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px"><span>'+e.k.toLocaleString("en-IN")+' / '+T.toLocaleString("en-IN")+' kcal</span><span>P '+Math.round(e.p)+' / '+Math.round(TP)+' g</span></div><div class="eatbar" role="img" aria-label="Planned calories eaten today"><i style="width:'+(e.k/T*100)+'%"></i></div>';
+}
+function applyTheme(){
+  var r=document.documentElement; if(st.theme==="light"||st.theme==="dark") r.setAttribute("data-theme",st.theme); else r.removeAttribute("data-theme");
+  $("theme").textContent=st.theme==="light"?"Light":st.theme==="dark"?"Dark":"Auto";
+}
+function copyText(txt,btn){
+  var label=btn.textContent;
+  function ok(){ btn.textContent="Copied"; setTimeout(function(){ btn.textContent=label; },1600); }
+  function fb(){ var ta=document.createElement("textarea"); ta.value=txt; ta.style.cssText="position:fixed;opacity:0;top:0"; document.body.appendChild(ta); ta.select(); var good=false; try{ good=document.execCommand("copy"); }catch(e){} ta.remove(); if(good) ok(); else btn.textContent="Select the text and copy it"; }
+  try{ if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok,fb); return; } }catch(e){}
+  fb();
+}
+var tm={end:0,total:1,id:null,label:""};
+function tickTimer(){
+  var left=Math.max(0,Math.ceil((tm.end-Date.now())/1000)), m=Math.floor(left/60), s=left%60;
+  $("tmtime").textContent=m+":"+(s<10?"0":"")+s; $("tmbar").style.width=(100-left/tm.total*100)+"%";
+  if(left===0){ $("timer").classList.add("over"); $("tmlabel").textContent="Rest over. Next set."; try{ if(navigator.vibrate) navigator.vibrate([200,100,200]); }catch(e){} clearInterval(tm.id); tm.id=null; }
+  else $("tmlabel").textContent="Rest · "+tm.label;
+}
+function startTimer(sec,label){ tm.total=sec; tm.end=Date.now()+sec*1000; tm.label=label||""; $("timer").hidden=false; $("timer").classList.remove("over"); if(tm.id) clearInterval(tm.id); tm.id=setInterval(tickTimer,250); tickTimer(); }
+function stopTimer(){ if(tm.id) clearInterval(tm.id); tm.id=null; $("timer").hidden=true; $("timer").classList.remove("over"); }
+
+/* ============ session detail ============ */
+function sessionHTML(w,d,withActions,big){
+  var id=sched(w,d), s=S[id], dt=addDays(startMon(),(w-1)*7+d), k0=key(w,d), done=!!st.done[k0], nT=0;
+  s.items.forEach(function(_,i){ if(st.ex[k0+"-"+i]) nT++; });
+  var h='<div class="shead"><div class="skick">'+(big?'Today · ':'')+'Week '+w+' · '+DAYS[d]+' '+dt.getDate()+'/'+(dt.getMonth()+1)+'</div><h2 class="sname">'+esc(s.name)+'</h2><div class="meta">'+esc(s.focus)+(withActions&&s.items.length?' · '+nT+' of '+s.items.length+' done':'')+'</div></div><div class="sbody">';
+  if(s.items.length){
+    h+='<p class="note" style="margin-top:0">'+effort(w)+' Warm up 6–8 min first: easy walk, arm circles, bodyweight squats, then 2 light sets of the first lift.'+(withActions?' Tick an exercise when all its sets are done. That starts your rest timer.':'')+'</p>';
+    s.items.forEach(function(it,i){
+      var sets=setsFor(it,w), kk=k0+"-"+i, on=!!st.ex[kk], rs=restSec(it[3]);
+      h+='<div class="ex'+(on?' ticked':'')+'">'+(withActions?'<input class="chk" type="checkbox" data-rs="'+rs+'" data-ex="'+kk+'" data-name="'+esc(it[0])+'" aria-label="Done: '+esc(it[0])+'"'+(on?' checked':'')+'>':'<span></span>')+
+        '<b>'+esc(it[0])+'</b><span class="sr">'+sets+' × '+esc(it[2])+'</span><small>'+esc(it[4])+' · '+(withActions?'<button type="button" class="rb" data-rest="'+rs+'" data-name="'+esc(it[0])+'">rest '+esc(it[3])+'</button>':'rest '+esc(it[3]))+' · or: '+esc(it[5])+'</small></div>';
+    });
+    if(s.cardio) h+='<p class="note">Finish with 10–15 min brisk incline walking.</p>';
+  } else { h+='<p class="note" style="margin-top:0">Rest day. Sleep well, hit your step target, and take a long walk if you like.</p>'; }
+  if(withActions && countable(id)){
+    h+='<div class="row"><button class="'+(done?'':'pri')+'" data-done="'+w+'-'+d+'">'+(done?'Undo: mark not done':'Mark session done')+'</button></div>';
+  }
+  return h+'</div>';
+}
+
+/* ============ today ============ */
+function lastDate(fields){
+  var best=null; st.log.forEach(function(e){ fields.forEach(function(f){ if(e[f]!=null && (!best||e.date>best)) best=e.date; }); }); return best;
+}
+function dueChip(label,fields,every,all){
+  var last=lastDate(fields), t=todayStr();
+  if(all){ fields.forEach(function(f){ var d=lastDate([f]); if(!d){ last=null; } else if(last && d<last) last=d; }); }
+  if(!last) return '<span class="chip due">'+label+': first entry</span>';
+  var due=fmt(addDays(parse(last),every));
+  if(due<=t) return '<span class="chip due">'+label+': due now</span>';
+  var n=diffDays(parse(due),parse(t));
+  return '<span class="chip ok">'+label+': in '+n+' day'+(n===1?'':'s')+'</span>';
+}
+function renderToday(){
+  var p=where(), el=$("v-today"), h="";
+  var chips='<div class="chips">'+dueChip("weight",["weight"],1)+dueChip("belly",["belly"],7)+dueChip("body sizes",["chest","shoulders","biceps","thigh","waist"],28,true)+'</div>';
+  if(p.state==="in"){
+    var w=p.w,d=p.d;
+    var cls=S[sched(w,d)].cls;
+    var TG=[["Steps",stepsFor(w).toLocaleString("en-IN")+(w>=5?" – 10,000":"")],["Gym","6:00 pm · 60–75 min"],["Walks","10 min after meals"],["Calories · protein","2,100 · 140–150 g"],["Water","2.5–3.5 L"],["In bed","11:00 pm"]];
+    h=roadHTML(w)+'<div class="tgrid"><div class="card sess c-'+cls+'">'+sessionHTML(w,d,true,true)+nextHTML(w,d)+'</div><div class="tside">'+mealsCard()+qwHTML()+habitHTML()+
+      '</div></div>'+
+      '<div class="trow"><div class="card"><h3>This week</h3><div class="week7" id="week7"></div><h3 style="margin-top:18px">Measure</h3>'+chips+(!st.checks[w]&&d>=5?'<div class="chips" style="margin-top:8px"><a class="chip due" href="#checkin" style="text-decoration:none">weekly check-in: due</a></div>':'')+'</div><div class="card tcard"><h3>Today\'s targets</h3><div class="tgt">'+TG.map(function(x){ return '<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>'; }).join("")+'</div></div></div>';
+  } else if(p.state==="before"){
+    h='<div class="head"><h2>Week 1 starts in '+p.days+' day'+(p.days===1?'':'s')+'</h2><p>Monday '+dm(startMon())+'. Until then: measure your baseline and ask your trainer to coach the Upper A lifts.</p><div class="row" style="margin-top:16px"><button class="pri" data-startnow="1">Start this week now</button><a class="btn" href="#log">Add baseline measurements</a></div></div>'+
+      '<div class="today-hero"><div class="stackcol"><div class="card"><h3>Baseline to take now</h3>'+chips+'<p class="note">Add chest and shoulders in Progress. They were never measured.</p></div></div><div class="card sess c-P">'+sessionHTML(1,0,false,true)+'</div></div>';
+  } else {
+    h='<div class="head"><h2>12 weeks done</h2><p>Open Progress, compare against your baseline, then redo the calorie maths with your new weight. Keep the split unless you are stuck.</p></div>'+chips;
+  }
+  el.innerHTML=h;
+  if(p.state==="in"){ buildWeek7(p.w,p.d); var tr=el.querySelector(".truck"); if(tr){ var np=tr.getAttribute("data-p"); lastP=+np; requestAnimationFrame(function(){ requestAnimationFrame(function(){ tr.style.setProperty("--p",np); }); }); } }
+}
+function buildWeek7(w,today){
+  var h=""; for(var d=0;d<7;d++){ var id=sched(w,d), k=key(w,d);
+    h+='<div><small>'+DS[d][0]+'</small><button class="cell t-'+S[id].cls+(st.done[k]?' done':'')+(d===today?' today':'')+(popKey===k&&st.done[k]?' pop':'')+'" data-go="'+w+'-'+d+'" aria-label="'+DAYS[d]+': '+S[id].name+(st.done[k]?', done':'')+'"><span>'+LAB[S[id].cls]+'</span></button></div>'; }
+  $("week7").innerHTML=h;
+}
+
+
+/* ============ volume ============ */
+var GROUPS=[["chest","Chest"],["back","Back"],["shoulders","Shoulders"],["biceps","Biceps"],["triceps","Triceps"],["quads","Quads"],["hams","Hamstrings"],["glutes","Glutes"],["calves","Calves"],["abs","Abs"]];
+function setsFor(it,w){ var s=Math.min(it[1],cap(w)); if(it[6]&&w>=9) s=it[1]+1; return s; }
+/* ============ eat ============ */
+function renderEat(){
+  var P=0,C=0,F=0,K=0; MEALS.forEach(function(m){P+=m.p;C+=m.c;F+=m.f;K+=m.k;});
+  var kp=P*4,kc=C*4,kf=F*9,kt=kp+kc+kf;
+  $("stack").innerHTML='<i class="seg-p" style="width:'+(kp/kt*100)+'%"></i><i class="seg-c" style="width:'+(kc/kt*100)+'%"></i><i class="seg-f" style="width:'+(kf/kt*100)+'%"></i>';
+  $("keys").innerHTML='<span><i class="seg-p"></i>protein '+Math.round(P)+' g</span><span><i class="seg-c"></i>carbs '+Math.round(C)+' g</span><span><i class="seg-f"></i>fat '+Math.round(F)+' g</span>';
+  $("total").innerHTML='<span>Day total</span><span>'+K.toLocaleString("en-IN")+' kcal</span><span>P '+n1(P)+' · C '+n1(C)+' · F '+n1(F)+'</span>';
+  var max=700, h="", idx=0;
+  MEALS.forEach(function(m){
+    var a=m.p*4,b=m.c*4,c=m.f*9,t=a+b+c, wpx=m.k/max*100;
+    var ate=!!((st.eat[todayStr()]||{})[idx]); idx++;
+    h+='<div class="meal'+(ate?' ate':'')+'"><div class="when">'+m.n+'<small>'+m.t+'</small><label class="tick"><input class="chk" type="checkbox" data-eat="'+(idx-1)+'"'+(ate?' checked':'')+'> ate it</label></div><div>'+
+      '<div class="mnum"><b>'+m.k+' kcal</b><span>P '+n1(m.p)+' · C '+n1(m.c)+' · F '+n1(m.f)+'</span></div>'+
+      '<div class="mbar" style="width:'+wpx+'%"><i class="seg-p" style="width:'+(a/t*100)+'%"></i><i class="seg-c" style="width:'+(b/t*100)+'%"></i><i class="seg-f" style="width:'+(c/t*100)+'%"></i></div>'+
+      '<ul class="foods">'+m.l.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div></div>';
+  });
+  $("meals").innerHTML=h;
+  $("eatsum").innerHTML='<h3>Eaten today</h3>'+eatBlock()+'<p class="small mute">Tick a meal when you eat it. Not logging calories, just keeping the plan honest.</p>';
+}
+
+/* ============ track ============ */
+var FIELDS=[["weight","Weight","kg"],["belly","Belly","in"],["waist","Narrow waist","in"],["chest","Chest","in"],["shoulders","Shoulders","in"],["biceps","Biceps","in"],["thigh","Thigh","in"]];
+function sorted(){ return st.log.slice().sort(function(a,b){ return a.date<b.date?-1:a.date>b.date?1:(a.base?-1:b.base?1:0); }); }
+function series(f){ return sorted().filter(function(e){return e[f]!=null;}).map(function(e){return {x:parse(e.date).getTime(),y:e[f],d:e.date};}); }
+function renderDeltas(){
+  var rows="";
+  FIELDS.forEach(function(f){
+    var pts=series(f[0]); var first=pts[0], last=pts[pts.length-1];
+    if(!first){ rows+='<tr><td>'+f[1]+'</td><td>—</td><td>—</td><td>—</td></tr>'; return; }
+    var d=last.y-first.y, good=(f[0]==="weight"||f[0]==="belly"||f[0]==="waist")?d<0:d>0, cls=pts.length<2||d===0?"":(good?"neg":"pos");
+    rows+='<tr><td>'+f[1]+' <span class="mute">'+f[2]+'</span></td><td>'+n2(first.y)+'</td><td>'+n2(last.y)+'</td><td class="'+cls+'">'+(pts.length<2?'—':(d>0?'+':'')+n2(d))+'</td></tr>';
+  });
+  $("deltas").innerHTML='<table class="tbl"><thead><tr><th>Measure</th><th>First</th><th>Latest</th><th>Change</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function renderLog(){
+  var l=sorted().reverse();
+  $("log").innerHTML=l.map(function(e){
+    var bits=[]; FIELDS.forEach(function(f){ if(e[f[0]]!=null) bits.push(f[1].toLowerCase()+" "+n2(e[f[0]])); });
+    return '<div><span class="d">'+e.date+'</span><span>'+esc(bits.join(" · "))+(e.note?' <span class="d">· '+esc(e.note)+'</span>':'')+'</span><button type="button" data-del="'+esc(e.id||e.date)+'" aria-label="Delete entry '+e.date+'"><svg viewBox="0 0 14 14" aria-hidden="true"><path class="x" d="M2 2l10 10M12 2L2 12"/></svg></button></div>';
+  }).join("")||'<div class="empty">No entries yet.</div>';
+}
+function advice(){
+  var el=$("advice"), pts=series("weight"), bp=series("belly");
+  if(pts.length<2){ el.innerHTML='<div class="advice"><span class="tag hold">NEED DATA</span><b>Log weight for 3 weeks.</b><p class="mute small">Then this box tells you whether to change anything.</p></div>'; return; }
+  var last=pts[pts.length-1], from=pts[0]; var win=last.x-21*86400000;
+  for(var i=0;i<pts.length;i++){ if(pts[i].x>=win){ from=pts[i]; break; } }
+  var days=(last.x-from.x)/86400000;
+  if(days<18){ el.innerHTML='<div class="advice"><span class="tag hold">TOO EARLY</span><b>Keep logging.</b><p class="mute small">Need about 3 weeks of weights before changing anything. You have '+Math.round(days)+' days.</p></div>'; return; }
+  var rate=(last.y-from.y)/(days/7);
+  var bd=null; if(bp.length>1){ var b0=bp[0],b1=bp[bp.length-1]; for(var j=0;j<bp.length;j++){ if(bp[j].x>=last.x-21*86400000){ b0=bp[j]; break; } } bd=b1.y-b0.y; }
+  var msg, tag, hold=false, why='Weight '+(rate>0?'+':'')+n2(rate)+' kg a week'+(bd!=null?', belly '+(bd>0?'+':'')+n2(bd)+' in':'')+' over '+Math.round(days)+' days.';
+  if(rate<-0.7){ tag="ADJUST"; msg="Losing too fast: add about 150 kcal (a banana and chana)."; }
+  else if(rate>-0.2 && (bd==null || bd>-0.1) && days>=18){ tag="ADJUST"; msg="Stalled: cut 100–150 kcal, or add 1,000 steps a day."; }
+  else if(rate>-0.2 && bd!=null && bd<=-0.1){ tag="HOLD"; hold=true; msg="Scale is flat but your belly is shrinking. Change nothing."; }
+  else { tag="HOLD"; hold=true; msg="On track. Change nothing."; }
+  el.innerHTML='<div class="advice"><span class="tag'+(hold?' hold':'')+'">'+tag+'</span><b>'+msg+'</b><p class="mute small">'+why+' Also add 150 kcal if your lifts are falling or you feel wrecked. Add a set only to lagging muscles after 3 weeks of rising lifts.</p></div>';
+}
+function renderTrack(){ renderDeltas(); renderLog(); advice(); renderCheckin(); }
+var progSub="charts";
+function renderProgress(){
+  ["charts","checkin","log"].forEach(function(s){ $("p-"+s).classList.toggle("on",s===progSub); var b=document.querySelector('[data-psub="'+s+'"]'); if(b) b.setAttribute("aria-selected",s===progSub?"true":"false"); });
+  renderTrack(); renderCharts();
+}
+
+/* ============ apps test ============ */
+function renderTest(){
+  var h='<thead><tr><th>Plan dish</th>'+APPS.map(function(a){return '<th>'+a+'</th>';}).join("")+'</tr></thead><tbody>';
+  DISHES.forEach(function(d,i){
+    h+='<tr><td>'+esc(d)+'</td>'+APPS.map(function(a){ var k=a+"|"+i; return '<td><input class="chk" type="checkbox" data-test="'+k+'" aria-label="'+a+' matches '+esc(d)+'"'+(st.test[k]?' checked':'')+'></td>'; }).join("")+'</tr>';
+  });
+  h+='<tr><td><b>Score</b></td>'+APPS.map(function(a){ var n=0; for(var i=0;i<DISHES.length;i++) if(st.test[a+"|"+i]) n++; return '<td class="sc">'+n+'/5</td>'; }).join("")+'</tr></tbody>';
+  $("test").innerHTML=h;
+}
+function renderWTest(){
+  var h='<thead><tr><th>Check</th><th>Liftosaur</th><th>FitNotes</th></tr></thead><tbody>';
+  WT.forEach(function(x,i){ h+='<tr><td>'+esc(x)+'</td>'+["Liftosaur","FitNotes"].map(function(a){ var k="WT:"+a+"|"+i; return '<td><input class="chk" type="checkbox" data-test="'+k+'" aria-label="'+a+': '+esc(x)+'"'+(st.test[k]?' checked':'')+'></td>'; }).join("")+'</tr>'; });
+  $("wtest").innerHTML=h+'</tbody>';
+}
+
+/* ============ weekly check-in (how a coach runs a review) ============ */
+var CI_Q=[
+ ["prot","Protein days on target (of 7)",["0–2","3–4","5–6","7"]],
+ ["sleep","Average sleep",["under 6 h","6–7 h","7–8 h","8 h +"]],
+ ["steps","Step target hit",["rarely","some days","most days"]],
+ ["energy","Energy and hunger",["hungry, tired","ok","strong"]],
+ ["conf","How sure are you about next week's habit?",["not very","fairly","very"]]
+];
+var ciDraft=null, ciWeek=0;
+function planWeek(){ var p=where(); return p.state==="in"?p.w:(p.state==="after"?12:1); }
+function weekAdh(w){ var n=0,pl=planned(w); for(var d=0;d<7;d++){ if(countable(sched(w,d))&&st.done[key(w,d)]) n++; } return {n:n,pl:pl}; }
+function trendInfo(){
+  var pts=series("weight"); if(pts.length<2) return null;
+  var last=pts[pts.length-1], from=pts[0], win=last.x-21*86400000;
+  for(var i=0;i<pts.length;i++){ if(pts[i].x>=win){ from=pts[i]; break; } }
+  var days=(last.x-from.x)/86400000; if(days<1) return null;
+  var rate=(last.y-from.y)/(days/7), bp=series("belly"), bd=null;
+  if(bp.length>1){ var b0=bp[0], b1=bp[bp.length-1]; for(var j=0;j<bp.length;j++){ if(bp[j].x>=last.x-21*86400000){ b0=bp[j]; break; } } bd=b1.y-b0.y; }
+  return {days:days,rate:rate,bd:bd};
+}
+var HABITS={
+ sleep:["Sleep first","Phone away at 10:30 pm, lights out by 11:00. Aim for 7 hours or more.","Short sleep cut the share of weight lost as fat in a small 14-day study."],
+ show:["Show up","Do 5 of 6 sessions. A short, light session beats a skipped one.","A plan you skip does nothing. Fix attendance before touching food."],
+ protein:["Protein first","Put a protein food in every meal until you hit 140 g on 6 of 7 days.","Protein is the food habit with the clearest support for keeping muscle."],
+ steps:["Walk after meals","Walk 10 minutes after lunch and after dinner, every day.","Steps are the easiest activity to add without hurting your lifting."],
+ sleep2:["Sleep to 7 hours","Move bedtime 30 minutes earlier. Keep the same wake time.","You are close. Half an hour more sleep is the next gain."],
+ protein2:["Protein every day","Hit your protein on all 7 days, weekends too.","Weekends are where the weekly average usually slips."],
+ hold:["Keep going","Same habits. Add 1 rep, or the smallest weight step, on your lifts.","Everything is on track. Do not fix what works."]
+};
+function coachSays(ci,adh,tr){
+  var k;
+  if(ci.sleep===0) k="sleep"; else if(adh.n/adh.pl<0.67) k="show"; else if(ci.prot<=1) k="protein"; else if(ci.steps===0) k="steps"; else if(ci.sleep===1) k="sleep2"; else if(ci.prot===2) k="protein2"; else k="hold";
+  var h=HABITS[k], cal;
+  var stalled=tr&&tr.days>=18&&tr.rate>-0.2&&(tr.bd==null||tr.bd>-0.1), fast=tr&&tr.rate<-0.7;
+  if(ci.energy===0||fast) cal="Eat about 150 kcal more (a banana and chana). You are low on energy or losing fast.";
+  else if(k!=="hold") cal="Do not change calories this week. Fix the habit first, then judge the numbers.";
+  else if(stalled) cal="Weight is flat and your habits are solid. Cut 100–150 kcal, or add 1,000 steps a day.";
+  else cal="Hold calories at 2,100.";
+  var small=ci.conf===0?" You said you are not very sure, so make it smaller: do it on 4 days, not 7.":"";
+  return {key:k,title:h[0],habit:h[1]+small,why:h[2],cal:cal};
+}
+function renderCheckin(){
+  var w=planWeek(); if(ciWeek!==w||!ciDraft){ ciWeek=w; ciDraft=JSON.parse(JSON.stringify(st.checks[w]||{})); }
+  var adh=weekAdh(w), tr=trendInfo(), ready=CI_Q.every(function(q){ return ciDraft[q[0]]!=null; });
+  var h='<h3>Weekly check-in · week '+w+'</h3><div class="ci"><p class="small mute">One minute, once a week. Coaches review the same few things, then change one thing. Answer honestly. Nobody is grading you.</p>';
+  h+='<div class="cifacts mono"><span>sessions <b>'+adh.n+'/'+adh.pl+'</b></span>'+(tr?'<span>weight <b>'+(tr.rate>0?'+':'')+n2(tr.rate)+' kg/wk</b></span>':'<span>weight <b>needs 2 entries</b></span>')+(tr&&tr.bd!=null?'<span>belly <b>'+(tr.bd>0?'+':'')+n2(tr.bd)+' in</b></span>':'')+'</div>';
+  CI_Q.forEach(function(q){ h+='<div class="ciq"><label>'+q[1]+'</label><div class="cset">'+q[2].map(function(o,i){ return '<button type="button" class="cb" data-ci="'+q[0]+'|'+i+'" aria-pressed="'+(ciDraft[q[0]]===i?'true':'false')+'">'+esc(o)+'</button>'; }).join("")+'</div></div>'; });
+  if(ready){ var r=coachSays(ciDraft,adh,tr);
+    h+='<div class="cires"><span class="tag">NEXT WEEK: ONE HABIT</span><b>'+esc(r.title)+'</b><p>'+esc(r.habit)+'</p><p class="small">'+esc(r.why)+'</p><p class="cical"><b>Calories:</b> '+esc(r.cal)+'</p><div class="row"><button type="button" class="pri" data-cisave="1">Save check-in</button>'+(st.checks[w]?'<span class="small">Saved for this week. Saving again updates it.</span>':'')+'</div></div>';
+  } else h+='<p class="small mute" style="margin-top:14px">Answer all five to get your one habit for next week.</p>';
+  h+='</div>';
+  var hist=Object.keys(st.checks).map(Number).sort(function(a,b){ return b-a; }).slice(0,4);
+  if(hist.length) h+='<div class="cihist mono small">'+hist.map(function(k){ var c=st.checks[k]; return '<div><b>W'+pad(k)+'</b> <span>'+esc(c.title||"")+'</span></div>'; }).join("")+'</div>';
+  $("checkin").innerHTML=h;
+}
+function habitHTML(){
+  var f=st.focus||{title:"Protein first",habit:"Put a protein food in every meal until you hit 140 g on 6 of 7 days."};
+  return '<div class="habit"><h3>This week\'s one habit</h3><b>'+esc(f.title)+'</b><p>'+esc(f.habit)+'</p><p class="small" style="margin-top:8px"><a href="#checkin">Do the weekly check-in</a></p></div>';
+}
+function mealsCard(){
+  var e=st.eat[todayStr()]||{};
+  return '<div class="card mealsc"><h3>Meals today</h3><div class="mlist">'+MEALS.map(function(m,i){ var on=!!e[i]; return '<label class="mrow'+(on?' ate':'')+'"><input class="chk" type="checkbox" data-eat="'+i+'"'+(on?' checked':'')+'><span class="mn">'+m.n+'<small>'+m.t+'</small></span><span class="mk">'+m.k+' kcal</span></label>'; }).join("")+'</div>'+eatBlock()+'</div>';
+}
+function qwHTML(){
+  var pts=series("weight"), last=pts.length?pts[pts.length-1]:null;
+  return '<form id="qw" class="qw" novalidate><h3>Weigh in</h3><label for="qwv">Morning weight, kg</label><div class="row"><input id="qwv" type="number" inputmode="decimal" step="0.1" placeholder="'+(last?n1(last.y):"82.0")+'" style="max-width:160px"><button class="pri" type="submit">Save</button></div><p class="small mute" id="qwm">'+(last?'Last: '+n1(last.y)+' kg on '+dateLabel(last.d)+'. Judge the weekly average, not one day.':'Weigh every morning, after the toilet, before food.')+'</p></form>';
+}
+function upsertToday(field,val){
+  var date=todayStr(), ex=null; for(var j=0;j<st.log.length;j++){ if(st.log[j].date===date&&!st.log[j].base){ ex=st.log[j]; break; } }
+  if(ex) ex[field]=val; else { var r={id:String(Math.random()).slice(2,10),date:date}; r[field]=val; st.log.push(r); }
+  save();
+}
+
+/* ============ eat: protein anchors ============ */
+var ANCH=[["Chicken breast, 150 g raw",34],["Soya chunks, 60 g raw",31],["Fish (rohu), 150 g raw",25],["Paneer, 100 g",18],["Dal, 150 g cooked",9],["Whole egg",6.3],["Milk, 200 ml",6.2],["Roasted chana, 30 g",5.7],["Curd, 150 g",4.7]];
+function renderAnchors(){
+  var el=$("anch"); if(!el) return;
+  el.innerHTML=ANCH.map(function(a){ return '<div class="vr"><span>'+esc(a[0])+'</span><div class="vt"><i style="width:'+Math.min(100,a[1]/36*100)+'%"></i><b style="left:'+(35/36*100)+'%"></b></div><span class="n">'+String(a[1]).replace(/\.0$/,"")+'</span></div>'; }).join("");
+}
+
+/* ============ guide ============ */
+var LEVERS=[
+ {t:"Show up",pro:"Coaches plan around what you will actually do. A plan you skip is worth nothing.",move:"Do 5 of 6 sessions. A light session beats a skipped one.",tag:"STUDY · WEAK",
+  ev:["People who track and stick with a plan lose more weight across every review I found, but the evidence is rated weak.","Habits took a median of about 66 days to form, with a very wide range, and one missed day did not break them (Lally 2010, as summarised). Exercise habits took longer. Expect to need all 12 weeks."],
+  links:[["Burke 2011 review","https://pubmed.ncbi.nlm.nih.gov/21185970/"],["Lally 2010, summary","https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit"]]},
+ {t:"Track it, daily",pro:"Dietitians ask clients to self-monitor: food, weight or activity.",move:"Weigh in on Today every morning. Judge the weekly average, never one day.",tag:"STUDY · WEAK",
+  ev:["Self-monitoring was consistently linked to greater weight loss in 22 studies (15 diet, 6 self-weighing, 1 exercise). The authors rated the evidence weak."],
+  links:[["Burke 2011 review","https://pubmed.ncbi.nlm.nih.gov/21185970/"]]},
+ {t:"One habit at a time",pro:"Habit-based coaches, such as Precision Nutrition, add one small habit every few weeks instead of changing everything at once.",move:"The weekly check-in picks one habit. Ignore the rest until it sticks.",tag:"PRACTICE",
+  ev:["This is coaching practice from the company's own materials in my search results. I found no trial that tests it."],
+  links:[["Precision Nutrition","https://www.precisionnutrition.com/"]]},
+ {t:"Protein at every meal",pro:"Dietitians set a daily protein number, then spread it across the day.",move:"Aim for about 35 g in each main meal. See the protein anchors on Eat.",tag:"STUDY",
+  ev:["ISSN: 1.4–2.0 g per kg a day, ideally spread across the day every 3–4 hours."],
+  links:[["ISSN position stand","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/"]]},
+ {t:"Lift to 1–3 reps short",pro:"Strength coaches use reps in reserve: stop with a few reps left, add reps, then add weight.",move:"Add a rep each session. Add weight when every set hits the top of the range.",tag:"STUDY · MIXED",
+  ev:["Muscle growth improves as sets get closer to failure, but lifters misjudge how many reps they have left, so treat '1–3 left' as a rough guide."],
+  links:[["NSCA summary","https://www.nsca.com/education/articles/nsca-coach/using-intensity-based-on-sets-and-repetitions-over-50-years-of-experience-a-brief-overview-of-load-setting-and-programming-strategy/"]]},
+ {t:"Sleep 7 hours",pro:"Sleep is a standard question in a weekly review.",move:"Phone away at 10:30 pm, lights out at 11:00.",tag:"STUDY · SMALL",
+  ev:["In a 14-day study of 10 adults on the same diet, 5.5 hours of sleep instead of 8.5 cut fat lost from about 1.4 kg to 0.6 kg and raised lean mass lost. It is a very small study."],
+  links:[["Nedeltcheva 2010, full text","https://www.paulogentil.com/pdf/Insufficient%20Sleep%20Undermines%20Dietary%20Efforts%20to%20Reduce%20Adiposity.pdf"]]},
+ {t:"Walk after meals",pro:"A step target is the easiest activity to add for a desk worker, and it does not hurt lifting recovery.",move:"6,000 steps now, 8,000 plus later, and 10 minutes after lunch and dinner.",tag:"PRACTICE",
+  ev:["I did not find a study for the 10-minute post-meal walk in this search. This is practice and general activity guidance, not a proven number."],links:[]},
+ {t:"Talk it through",pro:"Dietitians use motivational interviewing: open questions about why you want this and how sure you are.",move:"The check-in asks how sure you are. If you say 'not very', the habit shrinks.",tag:"STUDY",
+  ev:["A dietitian workgroup review rated motivational interviewing as strongly improving adherence. A meta-analysis summarised by StatPearls found about 1.5 kg more weight loss than usual care."],
+  links:[["Spahn 2010 review","https://www.cdrnet.org/vault/2459/web/files/Spahn%202010.pdf"],["StatPearls summary","https://www.ncbi.nlm.nih.gov/sites/books/NBK618378/"]]},
+ {t:"Change the plan slowly",pro:"Pros do not change calories after one bad weigh-in. They wait for a trend and fix habits first.",move:"Wait about 3 weeks of data. The Progress tab then tells you what to adjust.",tag:"MY RULE",
+  ev:["My rule, based on normal day-to-day weight swings. No trial cited."],links:[]}
+];
+var guideSub="matters", mattersDone=false;
+function renderMatters(){
+  if(mattersDone) return; mattersDone=true;
+  var h='<p class="mute" style="max-width:62ch;margin-bottom:6px">Coaches and dietitians do not start with the perfect plan. They start with what you will do every week, then change one thing at a time. Ranked by how much each should matter for you, in my judgement.</p>';
+  LEVERS.forEach(function(l,i){
+    h+='<div class="lever"><div class="rk">'+(i+1)+'</div><div><h3>'+esc(l.t)+' <span class="etag">'+esc(l.tag)+'</span></h3><p class="pro">'+esc(l.pro)+'</p><p class="move">Your move: '+esc(l.move)+'</p>'+l.ev.map(function(e){ return '<p class="ev">'+esc(e)+'</p>'; }).join("")+(l.links.length?'<p class="ev">'+l.links.map(function(k){ return '<a href="'+k[1]+'">'+esc(k[0])+'</a>'; }).join(" · ")+'</p>':'')+'</div></div>';
+  });
+  $("g-matters").innerHTML=h;
+}
+function renderGuide(){
+  ["matters","apps","proof"].forEach(function(s){ $("g-"+s).classList.toggle("on",s===guideSub); var b=document.querySelector('[data-sub="'+s+'"]'); if(b) b.setAttribute("aria-selected",s===guideSub?"true":"false"); });
+  if(guideSub==="matters") renderMatters();
+  if(guideSub==="apps"){ renderTest(); renderWTest(); }
+}
+
+/* ============ train: program timeline, week list, session detail, volume heatmap ============ */
+var volOpen=null;
+function sessionSets(id,w){ var n=0; S[id].items.forEach(function(it){ n+=setsFor(it,w); }); return n; }
+function phaseName(w){ return w<=2?"Learn":w<=7?"Build":w===8?"Deload":"Build+"; }
+function phaseNote(w){ return w<=2?"2 sets per exercise, easy effort":w<=7?"3 sets per exercise":w===8?"lighter recovery week":"3 sets, a 4th on laggers"; }
+var CLSVAR={P:"push",Q:"pull",L:"legs",R:"mute"};
+function ensureSel(){ if(!sel){ var p0=where(); sel=(p0.state==="in")?{w:p0.w,d:p0.d}:{w:1,d:0}; } }
+function renderGrid(){
+  ensureSel(); var p=where(), w=sel.w, h="", k, d;
+  for(k=1;k<=12;k++){
+    var dn=0, pl=planned(k); for(d=0;d<7;d++){ if(countable(sched(k,d))&&st.done[key(k,d)]) dn++; }
+    h+='<button type="button" class="tlw'+(k===w?' sel':'')+(p.state==="in"&&p.w===k?' cur':'')+(dn===pl?' full':'')+'" data-wk="'+k+'" aria-label="Week '+k+', '+dn+' of '+pl+' sessions done"><div class="bar"><i style="height:'+(dn/pl*100)+'%"></i></div><span>'+k+'</span></button>';
+  }
+  $("tl").innerHTML=h;
+  var ph=[["Learn",1,2],["Build",3,7],["Lite",8,8],["Build+",9,12]];
+  $("tlph").innerHTML=ph.map(function(x){ return '<span class="'+(w>=x[1]&&w<=x[2]?'on':'')+'" style="grid-column:'+x[1]+'/'+(x[2]+1)+'">'+x[0]+'</span>'; }).join("");
+  $("wktitle").textContent="Week "+w+" · "+phaseName(w);
+  $("wksub").textContent=phaseNote(w)+(p.state==="in"&&p.w===w?" · this week":"");
+  $("wkprev").disabled=w<=1; $("wknext").disabled=w>=12;
+  var L="";
+  for(d=0;d<7;d++){
+    var id=sched(w,d), s=S[id], dt=addDays(startMon(),(w-1)*7+d), kk=key(w,d), isDone=!!st.done[kk], cnt=countable(id);
+    var isToday=p.state==="in"&&p.w===w&&p.d===d, past=(p.state==="in"&&(w<p.w||(w===p.w&&d<p.d)))||p.state==="after";
+    var stat=isDone?'<span class="dstat done">Done</span>':isToday?'<span class="dstat today">Today</span>':(cnt&&past)?'<span class="dstat missed">Missed</span>':'';
+    var sub=esc(s.focus)+(cnt?' · '+s.items.length+' exercises · '+sessionSets(id,w)+' sets':'');
+    L+='<button type="button" class="dayrow'+(cnt?'':' rest')+(sel.d===d?' sel':'')+'" data-sel="'+w+'-'+d+'" aria-label="'+DAYS[d]+': '+esc(s.name)+'"><span class="dbadge" style="--c:var(--'+CLSVAR[s.cls]+')">'+(cnt?LAB[s.cls]:'REST')+'</span><span class="dmain"><small class="dd">'+DS[d]+' '+dm(dt)+'</small><b>'+esc(s.name)+'</b><small>'+sub+'</small></span>'+stat+'</button>';
+  }
+  $("weeklist").innerHTML=L;
+}
+function renderDetail(){
+  ensureSel();
+  var dl=$("detail"); dl.className="detail card sess c-"+S[sched(sel.w,sel.d)].cls; dl.innerHTML=sessionHTML(sel.w,sel.d,true); renderVol(sel.w);
+}
+function renderVol(w){
+  var per={}, d; GROUPS.forEach(function(g){ per[g[0]]={days:[0,0,0,0,0,0,0],ex:[]}; });
+  for(d=0;d<7;d++){ var id=sched(w,d); S[id].items.forEach(function(it){ var o=per[it[7]], n=setsFor(it,w); o.days[d]+=n; o.ex.push([d,S[id].name,it[0],n]); }); }
+  var cols=[0,1,2,3,4,5], selD=sel?sel.d:-1;
+  var h='<table class="vmx"><thead><tr><th></th>'+cols.map(function(c){ return '<th class="'+(selD===c?'on':'')+'">'+DS[c]+'</th>'; }).join("")+'<th>Week</th></tr></thead><tbody>';
+  GROUPS.forEach(function(g){
+    var o=per[g[0]], tot=0; o.days.forEach(function(n){ tot+=n; });
+    var cls=tot<6?"low":tot<10?"mid":"ok", open=volOpen===g[0];
+    h+='<tr class="vrow'+(open?' open':'')+'" data-vm="'+g[0]+'" tabindex="0" role="button" aria-expanded="'+open+'" aria-label="'+g[1]+': '+tot+' sets this week. Tap for the exercises."><td class="m">'+g[1]+'</td>'+
+      cols.map(function(c){ var n=o.days[c]; return '<td class="c"><span class="vcell'+(n>=2?' hi':'')+(selD===c?' col':'')+'" style="--a:'+(n?Math.min(.85,.25+n*.18).toFixed(2):0)+'">'+(n||'·')+'</span></td>'; }).join("")+
+      '<td class="tot"><span class="dot s-'+cls+'"></span><b>'+tot+'</b></td></tr>';
+    if(open) h+='<tr class="vdet"><td colspan="8">'+(o.ex.length?o.ex.map(function(e){ return '<div><b>'+DS[e[0]]+'</b> '+esc(e[2])+' <span class="mono">'+e[3]+' sets</span></div>'; }).join(""):'No direct sets for this muscle.')+'</td></tr>';
+  });
+  h+='</tbody></table><div class="vleg"><span><i class="dot s-low"></i>low, under 6</span><span><i class="dot s-mid"></i>building, 6–9</span><span><i class="dot s-ok"></i>on target, 10 or more</span></div>';
+  $("vol").innerHTML=h; $("voltitle").textContent="Sets per muscle · week "+w;
+}
+
+/* ============ progress charts: week axis, moving average, expected-pace band, scrub tooltip ============ */
+function movAvg(pts){ return pts.map(function(p){ var s=0,n=0; pts.forEach(function(q){ if(q.x<=p.x&&q.x>=p.x-6*86400000){ s+=q.y; n++; } }); return {x:p.x,y:s/n,d:p.d}; }); }
+function niceTicks(mn,mx,count){
+  var span=Math.max(mx-mn,0.0001), raw=span/count, mag=Math.pow(10,Math.floor(Math.log(raw)/Math.LN10)), err=raw/mag, step=mag*(err>=5?5:err>=2?2:1);
+  var a=Math.ceil(mn/step)*step, t=[]; for(var v=a;v<=mx+1e-9;v+=step) t.push(+v.toFixed(6)); return t;
+}
+function weekOf(x){ return Math.floor((x-startMon().getTime())/(7*86400000))+1; }
+function chart2(o){
+  var W=Math.max(280,Math.floor(o.el.clientWidth||340)), H=236, L=40, R=12, T=16, B=30;
+  var pts=o.pts, base=pts[0], avg=movAvg(pts), DAY=86400000;
+  var lastX=Math.max(pts[pts.length-1].x,Date.now());
+  var x0=base.x, x1=Math.min(lastX+21*DAY,Math.max(startMon().getTime()+84*DAY,lastX));
+  if(x1-x0<28*DAY) x1=x0+28*DAY;
+  var wk=function(x){ return (x-x0)/(7*DAY); };
+  var ys=pts.map(function(p){return p.y;}).concat((o.refs||[]).map(function(r){return r.y;}));
+  if(o.band){ ys.push(base.y-o.band[1]*wk(x1)); ys.push(base.y-o.band[0]*wk(x1)); }
+  var mn=Math.min.apply(null,ys), mx=Math.max.apply(null,ys), pad=(mx-mn)*0.1||0.5; mn-=pad; mx+=pad;
+  var X=function(x){ return L+(x-x0)/(x1-x0)*(W-L-R); }, Y=function(y){ return T+(1-(y-mn)/(mx-mn))*(H-T-B); };
+  var s='<svg class="chart" viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="'+esc(o.name)+' over the program">';
+  niceTicks(mn,mx,4).forEach(function(v){ var y=Y(v); s+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'"/><text x="'+(L-6)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end">'+n1(v).replace(/\.0$/,"")+'</text>'; });
+  if(o.band){
+    var xa=X(x0), xb=X(x1), poly=xa+","+Y(base.y).toFixed(1)+" "+xb+","+Y(base.y-o.band[0]*wk(x1)).toFixed(1)+" "+xb+","+Y(base.y-o.band[1]*wk(x1)).toFixed(1);
+    s+='<polygon class="band" points="'+poly+'"/><text class="bt" x="'+(W-R-4)+'" y="'+(Y(base.y-o.band[1]*wk(x1))+14).toFixed(1)+'" text-anchor="end">'+esc(o.bandLabel)+'</text>';
+  }
+  (o.refs||[]).forEach(function(r){ var y=Y(r.y); s+='<line class="rf" x1="'+L+'" x2="'+(W-R)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'"/><text class="bt" x="'+(W-R)+'" y="'+(y-5).toFixed(1)+'" text-anchor="end">'+esc(r.label)+'</text>'; });
+  var k0=weekOf(x0), k1=weekOf(x1), n=k1-k0+1, stepW=Math.max(1,Math.ceil(n/6));
+  for(var k=Math.max(1,k0);k<=k1;k+=stepW){ var xx=startMon().getTime()+(k-1)*7*DAY; if(xx>=x0&&xx<=x1) s+='<line class="gl v" x1="'+X(xx).toFixed(1)+'" x2="'+X(xx).toFixed(1)+'" y1="'+T+'" y2="'+(H-B)+'"/><text x="'+X(xx).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle">W'+k+'</text>'; }
+  var tx=Date.now(); if(tx>=x0&&tx<=x1) s+='<line class="today" x1="'+X(tx).toFixed(1)+'" x2="'+X(tx).toFixed(1)+'" y1="'+T+'" y2="'+(H-B)+'"/>';
+  pts.forEach(function(p){ s+='<circle class="pt" cx="'+X(p.x).toFixed(1)+'" cy="'+Y(p.y).toFixed(1)+'" r="3"/>'; });
+  var lineSrc=o.avg?avg:pts;
+  if(lineSrc.length>1) s+='<path class="ln" pathLength="1" d="'+lineSrc.map(function(p,i){ return (i?"L":"M")+X(p.x).toFixed(1)+" "+Y(p.y).toFixed(1); }).join(" ")+'"/>';
+  var lp=lineSrc[lineSrc.length-1], lx=X(lp.x), ly=Y(lp.y);
+  s+='<circle class="last" cx="'+lx.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="6"/>';
+  s+='<g class="scrub" hidden><line class="sl" y1="'+T+'" y2="'+(H-B)+'"/><circle class="sp" r="6"/></g><rect class="hit" x="'+L+'" y="'+T+'" width="'+(W-L-R)+'" height="'+(H-T-B)+'"/></svg><div class="tip" hidden></div>';
+  o.el.innerHTML=s;
+  var svg=o.el.querySelector("svg"), tip=o.el.querySelector(".tip"), g=svg.querySelector(".scrub"), sl=g.querySelector(".sl"), sp=g.querySelector(".sp");
+  function show(e){
+    var r=svg.getBoundingClientRect(), px=(e.clientX-r.left)*(W/r.width), best=null, bd=1e12;
+    pts.forEach(function(p,i){ var dx=Math.abs(X(p.x)-px); if(dx<bd){ bd=dx; best=i; } });
+    var p=pts[best], a=avg[best], cx=X(p.x), cy=Y(p.y);
+    g.hidden=false; sl.setAttribute("x1",cx); sl.setAttribute("x2",cx); sp.setAttribute("cx",cx); sp.setAttribute("cy",cy);
+    var dlt=p.y-base.y;
+    tip.innerHTML='<b>'+n2(p.y)+' '+o.unit+'</b><span>'+dateLabel(p.d)+(weekOf(p.x)>=1?' · Week '+weekOf(p.x):' · before start')+'</span><span>'+(best===0?'baseline':(dlt>0?'+':'')+n2(dlt)+' '+o.unit+' vs baseline')+(o.avg&&pts.length>1?' · avg '+n2(a.y):'')+'</span>';
+    tip.hidden=false; var tw=tip.offsetWidth, left=cx*(r.width/W)-tw/2; left=Math.max(4,Math.min(r.width-tw-4,left)); tip.style.left=left+"px";
+  }
+  function hide(){ g.hidden=true; tip.hidden=true; }
+  svg.addEventListener("pointermove",show); svg.addEventListener("pointerdown",show); svg.addEventListener("pointerleave",hide);
+  return {avgLast:lp,base:base,band:o.band,wk:wk};
+}
+function chartHead(title,val,unit,chipText,chipCls){
+  return '<div class="chh"><div><span class="ct">'+title+'</span><b class="cv">'+val+' <small>'+unit+'</small></b></div>'+(chipText?'<span class="pace '+chipCls+'">'+chipText+'</span>':'')+'</div>';
+}
+function renderCharts(){
+  var box=$("charts"), pane=$("p-charts"); if(!pane||!pane.classList.contains("on")) return;
+  var wp=series("weight"), bp=series("belly");
+  box.innerHTML='<div class="ch" id="ch1"></div><div class="ch" id="ch2"></div>';
+  function one(id,pts,opt,headFn){
+    var el=$(id);
+    if(!pts.length){ el.innerHTML=chartHead(opt.name,"–",opt.unit,"","")+'<div class="empty">Log your first '+opt.name.toLowerCase()+' on the Log tab, or weigh in on Today.</div>'; return; }
+    el.innerHTML=chartHead(opt.name,"…",opt.unit,"","")+'<div class="cw"></div><p class="small mute chn">'+opt.note+'</p>';
+    var info=chart2({el:el.querySelector(".cw"),name:opt.name,unit:opt.unit,pts:pts,refs:opt.refs,band:opt.band,bandLabel:opt.bandLabel,avg:opt.avg});
+    var h=headFn(info,pts); el.querySelector(".chh").outerHTML=h;
+  }
+  one("ch1",wp,{name:"Weight",unit:"kg",band:[0.25,0.5],bandLabel:"expected loss 0.25–0.5 kg/week",avg:true,note:"Line is the 7-day average. Dots are single weigh-ins. Touch or hover the chart to read a day."},function(info,pts){
+    var last=info.avgLast, d=last.y-info.base.y, spanD=(last.x-info.base.x)/86400000;
+    var chip="",cls="";
+    if(spanD>=7){ var hi=info.base.y-0.25*info.wk(last.x), lo=info.base.y-0.5*info.wk(last.x); if(last.y>hi+0.15){ chip="Behind pace"; cls="amber"; } else if(last.y<lo-0.15){ chip="Faster than pace"; cls="blue"; } else { chip="On pace"; cls="green"; } }
+    else { chip="Too early to judge"; cls="grey"; }
+    return chartHead("Weight",n1(last.y),"kg · "+(pts.length>1?(d>0?'+':'')+n2(d)+' since baseline':'baseline'),chip,cls);
+  });
+  one("ch2",bp,{name:"Belly",unit:"in",refs:[{y:35.4,label:"90 cm risk line"},{y:33.5,label:"85 cm target"}],note:"Measured level with the navel, midway between rib and hip bone. Weekly is enough.",avg:false},function(info,pts){
+    var last=pts[pts.length-1], d=last.y-pts[0].y, to=last.y-35.4;
+    return chartHead("Belly",n2(last.y),"in · "+(pts.length>1?(d>0?'+':'')+n2(d)+' since baseline':'baseline'),to>0?n1(to)+' in to the 90 cm line':'Below the 90 cm line',to>0?'amber':'green');
+  });
+}
+
+/* ============ router ============ */
+var VIEWS=["today","train","eat","progress","guide"], ALIAS={plan:"train",track:"progress",apps:"guide",proof:"guide",checkin:"progress",charts:"progress",log:"progress"}, SUBS={apps:"apps",proof:"proof"}, PSUBS={checkin:"checkin",charts:"charts",log:"log",track:"charts"}, shown={};
+function route(){
+  var raw=(location.hash||"#today").slice(1), h=ALIAS[raw]||raw; if(SUBS[raw]) guideSub=SUBS[raw]; if(PSUBS[raw]) progSub=PSUBS[raw]; if(VIEWS.indexOf(h)<0) h="today";
+  VIEWS.forEach(function(v){ $("v-"+v).classList.toggle("on",v===h); });
+  var links=document.querySelectorAll("#rail a"); for(var i=0;i<links.length;i++){ if(links[i].getAttribute("href")==="#"+h) links[i].setAttribute("aria-current","page"); else links[i].removeAttribute("aria-current"); }
+  if(h==="today") renderToday();
+  if(h==="train"){ renderGrid(); renderDetail(); $("startdate").value=st.start; }
+  if(h==="eat"){ renderEat(); renderAnchors(); }
+  if(h==="progress") renderProgress();
+  if(h==="guide") renderGuide();
+  window.scrollTo(0,0);
+}
+function stamp(){
+  var p=where(), t=new Date();
+  $("stamp").innerHTML=p.state==="in"?'<b>Week '+p.w+' · '+DS[p.d]+'</b><span class="sd"> · '+dm(t)+'</span>':dateLabel(fmt(t));
+}
+
+/* ============ events ============ */
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-done]");
+  if(b){ var k=b.getAttribute("data-done"); if(st.done[k]) delete st.done[k]; else { st.done[k]=true; popKey=k; } save(); rerender(); return; }
+  b=e.target.closest("[data-rest]");
+  if(b){ startTimer(+b.getAttribute("data-rest"),b.getAttribute("data-name")); return; }
+  b=e.target.closest("[data-tm]");
+  if(b){ if(b.getAttribute("data-tm")==="stop") stopTimer(); else { tm.end+=30000; tm.total+=30; $("timer").classList.remove("over"); if(!tm.id) tm.id=setInterval(tickTimer,250); tickTimer(); } return; }
+  b=e.target.closest("[data-copy]");
+  if(b){ copyText($(b.getAttribute("data-copy")).textContent,b); return; }
+  if(e.target.closest("#theme")){ st.theme=!st.theme?"light":(st.theme==="light"?"dark":undefined); if(!st.theme) delete st.theme; save(); applyTheme(); return; }
+  b=e.target.closest("[data-wk]");
+  if(b){ var nw=+b.getAttribute("data-wk"), pp=where(); sel={w:nw,d:(pp.state==="in"&&pp.w===nw)?pp.d:0}; renderGrid(); renderDetail(); return; }
+  b=e.target.closest("[data-wkstep]");
+  if(b){ var n2w=Math.max(1,Math.min(12,sel.w+(+b.getAttribute("data-wkstep")))), p2=where(); sel={w:n2w,d:(p2.state==="in"&&p2.w===n2w)?p2.d:0}; renderGrid(); renderDetail(); return; }
+  b=e.target.closest("[data-vm]");
+  if(b){ var vg=b.getAttribute("data-vm"); volOpen=(volOpen===vg)?null:vg; renderVol(sel.w); return; }
+  b=e.target.closest("[data-psub]");
+  if(b){ progSub=b.getAttribute("data-psub"); renderProgress(); return; }
+  b=e.target.closest("[data-sub]");
+  if(b){ guideSub=b.getAttribute("data-sub"); renderGuide(); return; }
+  b=e.target.closest("[data-ci]");
+  if(b){ var qa=b.getAttribute("data-ci").split("|"); if(!ciDraft) ciDraft={}; ciDraft[qa[0]]=+qa[1]; renderCheckin(); return; }
+  b=e.target.closest("[data-cisave]");
+  if(b){ var wk=planWeek(), rr=coachSays(ciDraft,weekAdh(wk),trendInfo()); var rec2=JSON.parse(JSON.stringify(ciDraft)); rec2.title=rr.title; rec2.habit=rr.habit; rec2.date=todayStr(); st.checks[wk]=rec2; st.focus={title:rr.title,habit:rr.habit,w:wk}; save(); renderCheckin(); return; }
+  b=e.target.closest("[data-startnow]");
+  if(b){ var tn=new Date(); st.start=fmt(mondayOf(new Date(tn.getFullYear(),tn.getMonth(),tn.getDate()))); save(); sel=null; stamp(); renderToday(); return; }
+  b=e.target.closest("[data-sel]");
+  if(b){ var a=b.getAttribute("data-sel").split("-"); sel={w:+a[0],d:+a[1]}; renderGrid(); renderDetail(); if(window.innerWidth<900) $("detail").scrollIntoView({behavior:"smooth",block:"nearest"}); return; }
+  b=e.target.closest("[data-go]");
+  if(b){ var a2=b.getAttribute("data-go").split("-"); sel={w:+a2[0],d:+a2[1]}; shown.plan=1; location.hash="#train"; return; }
+  b=e.target.closest("[data-del]");
+  if(b){ var dt=b.getAttribute("data-del"); if(b.getAttribute("data-armed")){ st.log=st.log.filter(function(x){return (x.id||x.date)!==dt;}); save(); renderTrack(); } else { b.setAttribute("data-armed","1"); b.style.background="var(--bad)"; b.style.color="#fff"; b.style.borderColor="var(--bad)"; $("err").textContent="Tap the red button again to delete that entry."; setTimeout(function(){ b.removeAttribute("data-armed"); b.removeAttribute("style"); },3000); } return; }
+});
+function rerender(focusKey){
+  var on=location.hash.slice(1)||"today";
+  if(on==="plan"||on==="train"){ renderGrid(); renderDetail(); } else renderToday();
+  popKey=null; stamp();
+  if(focusKey){ var f=document.querySelector('[data-ex="'+focusKey+'"]'); if(f) f.focus(); }
+}
+document.addEventListener("change",function(e){
+  if(e.target.matches("[data-test]")){ var k0=e.target.getAttribute("data-test"); if(e.target.checked) st.test[k0]=true; else delete st.test[k0]; save(); renderTest(); renderWTest(); }
+  if(e.target.matches("[data-ex]")){
+    var kx=e.target.getAttribute("data-ex"), a=kx.split("-"), w=+a[0], d=+a[1], items=S[sched(w,d)].items, name=e.target.getAttribute("data-name");
+    if(e.target.checked) st.ex[kx]=1; else delete st.ex[kx];
+    var all=items.every(function(_,i){ return st.ex[w+"-"+d+"-"+i]; }), cnt=key(w,d);
+    if(e.target.checked){ if(all){ if(!st.done[cnt]){ st.done[cnt]=true; popKey=cnt; } stopTimer(); } else startTimer(+e.target.getAttribute("data-rs"),name); }
+    save(); rerender(kx);
+  }
+  if(e.target.matches("[data-eat]")){ var td=todayStr(), i=e.target.getAttribute("data-eat"); st.eat[td]=st.eat[td]||{}; if(e.target.checked) st.eat[td][i]=1; else delete st.eat[td][i]; save(); var onv=location.hash.slice(1)||"today"; if(onv==="eat") renderEat(); else renderToday(); }
+  if(e.target.id==="startdate" && e.target.value){ st.start=e.target.value; save(); sel=null; renderGrid(); renderDetail(); stamp(); }
+});
+document.addEventListener("keydown",function(e){ if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("[data-vm]")){ e.preventDefault(); e.target.click(); } });
+document.addEventListener("submit",function(e){
+  if(e.target.id!=="qw") return; e.preventDefault();
+  var v=parseFloat($("qwv").value.replace(",",".")), m=$("qwm");
+  if(isNaN(v)||v<30||v>250){ m.textContent="Enter a weight between 30 and 250 kg."; m.style.color="var(--bad)"; return; }
+  upsertToday("weight",v); renderToday(); var m2=$("qwm"); if(m2){ m2.textContent="Saved "+n1(v)+" kg. Good. Keep going."; m2.style.color="var(--good)"; }
+});
+$("form").addEventListener("submit",function(e){
+  e.preventDefault(); var err=$("err"); err.textContent="";
+  var date=$("f-date").value||todayStr(), rec={date:date}, any=false, ranges={weight:[30,250],belly:[15,80],waist:[15,80],chest:[15,80],shoulders:[15,90],biceps:[5,30],thigh:[10,50]};
+  for(var i=0;i<FIELDS.length;i++){ var f=FIELDS[i][0], v=$("f-"+f).value.trim(); if(v==="") continue; var x=parseFloat(v.replace(",","."));
+    if(isNaN(x)||x<ranges[f][0]||x>ranges[f][1]){ err.textContent=FIELDS[i][1]+' looks wrong. Enter '+ranges[f][0]+' to '+ranges[f][1]+' '+FIELDS[i][2]+'.'; return; }
+    rec[f]=x; any=true; }
+  var note=$("f-note").value.trim(); if(note){ rec.note=note; any=true; }
+  if(!any){ err.textContent="Enter at least one number."; return; }
+  var ex=null; for(var j=0;j<st.log.length;j++){ if(st.log[j].date===date && !st.log[j].base){ ex=st.log[j]; break; } }
+  if(ex){ for(var k in rec) if(k!=="date") ex[k]=rec[k]; } else { rec.id=String(Math.random()).slice(2,10); st.log.push(rec); }
+  save(); FIELDS.forEach(function(f){ $("f-"+f[0]).value=""; }); $("f-note").value=""; renderTrack();
+  err.textContent="Saved."; err.style.color="var(--good)"; setTimeout(function(){ err.textContent=""; err.style.color=""; },2500);
+});
+$("exp").addEventListener("click",function(){
+  var blob=new Blob([JSON.stringify(st,null,2)],{type:"application/json"}), a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="recomp-plan-"+todayStr()+".json"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+});
+$("imp").addEventListener("click",function(){ $("impfile").click(); });
+$("impfile").addEventListener("change",function(e){
+  var f=e.target.files[0], m=$("dataerr"); if(!f) return; m.style.color="";
+  var r=new FileReader(); r.onload=function(){ try{ var o=JSON.parse(r.result); if(!o||!Array.isArray(o.log)||typeof o.start!=="string") throw 0; o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; st=o; save(); sel=null; m.textContent="Imported "+o.log.length+" entries."; m.style.color="var(--good)"; renderTrack(); stamp(); }catch(x){ m.textContent="That file is not a plan export. Nothing changed."; } e.target.value=""; };
+  r.readAsText(f);
+});
+var armed=false;
+$("reset").addEventListener("click",function(){
+  var b=$("reset"), m=$("dataerr");
+  if(!armed){ armed=true; b.textContent="Tap again to erase all data"; b.style.borderColor="var(--bad)"; b.style.color="var(--bad)"; setTimeout(function(){ armed=false; b.textContent="Erase everything"; b.removeAttribute("style"); },3500); return; }
+  armed=false; st=fresh(); save(); sel=null; b.textContent="Erase everything"; b.removeAttribute("style"); m.textContent="Erased. Baseline reset to 82 kg, 40 in."; renderTrack(); stamp();
+});
+var rz; window.addEventListener("resize",function(){ clearTimeout(rz); rz=setTimeout(function(){ renderCharts(); },150); });
+window.addEventListener("hashchange",route);
+
+/* ============ boot ============ */
+$("f-date").value=todayStr();
+applyTheme(); stamp(); route();
+})();
+</script>
+</body>
+</html>
