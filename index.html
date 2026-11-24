@@ -669,11 +669,20 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   <p class="mute" style="margin-bottom:12px;max-width:62ch">Log these dishes, photo or text. Tick a box when the app lands within 15% of the plan value. Keep the app with 4 or more, and where you can save your own recipe.</p>
   <div class="tw"><table class="tbl test" id="test"></table></div></div>
 
+  <div class="sec"><h3>My details</h3>
+  <p class="mute" style="max-width:64ch">Edit these and they save in this browser only. Nobody else who opens this page sees them. They fill in the AI prompt below.</p>
+  <div class="card"><form id="profform" class="grid" novalidate>
+    <div><label for="pf-age">Age</label><input id="pf-age" type="number" inputmode="numeric"></div>
+    <div><label for="pf-weight">Weight kg</label><input id="pf-weight" type="number" inputmode="decimal" step="0.1"></div>
+    <div><label for="pf-height">Height cm</label><input id="pf-height" type="number" inputmode="decimal"></div>
+    <div class="wide"><label for="pf-about">About me (job, street, anything else)</label><input id="pf-about" type="text" maxlength="200"></div>
+  </form></div></div>
+
   <div class="sec"><h3>3. Meal plans: use a free AI chat</h3>
   <p class="mute" style="max-width:64ch">I found no free app that makes good Indian meal plans. The paid coaching in Healthify-type apps is the main product there. A free AI chat app can do it if you give it your numbers. Check its totals, because it can add up wrong.</p>
   <details open><summary>Prompt: a 7-day Indian meal plan</summary><div class="inner">
     <div class="prompt" id="pr1">Make me a 7-day Indian home-food meal plan.
-About me: man, 27, 82 kg, 170 cm, desk job, lifting 6 days a week, losing belly fat and building muscle.
+About me: <span id="pr-about"></span>
 Daily target: 2,100 kcal, 140 to 150 g protein, about 235 g carbs, about 65 g fat.
 I eat: eggs, chicken, fish, dal, rice, roti, sabzi, curd, milk, soya chunks, paneer, fruit. No whey.
 Four meals: breakfast, lunch, a 5:15 pm pre-workout snack, and an 8:30 pm dinner.
@@ -805,10 +814,10 @@ function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+n
 function mondayOf(d){ return addDays(d,-((d.getDay()+6)%7)); }
 function diffDays(a,b){ return Math.round((a-b)/86400000); }
 function nextMonday(){ var t=new Date(); t=new Date(t.getFullYear(),t.getMonth(),t.getDate()); var add=(8-t.getDay())%7; return addDays(t,add); }
-function fresh(){ return {start:fmt(nextMonday()),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
+function fresh(){ return {profile:{age:27,weight:82,height:170,about:"desk job"},start:fmt(nextMonday()),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
 var st;
 function load(){
-  try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
+  try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; o.profile=o.profile||{age:27,weight:82,height:170,about:"desk job"}; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
   catch(e){ canStore=false; }
   return fresh();
 }
@@ -1388,10 +1397,25 @@ var armed=false;
 $("reset").addEventListener("click",function(){
   var b=$("reset"), m=$("dataerr");
   if(!armed){ armed=true; b.textContent="Tap again to erase all data"; b.style.borderColor="var(--bad)"; b.style.color="var(--bad)"; setTimeout(function(){ armed=false; b.textContent="Erase everything"; b.removeAttribute("style"); },3500); return; }
-  armed=false; st=fresh(); save(); sel=null; b.textContent="Erase everything"; b.removeAttribute("style"); m.textContent="Erased. Baseline reset to 82 kg, 40 in."; renderTrack(); stamp();
+  armed=false; st=fresh(); save(); sel=null; b.textContent="Erase everything"; b.removeAttribute("style"); m.textContent="Erased. Baseline reset to 82 kg, 40 in."; renderTrack(); renderProfile(); stamp();
 });
 var rz; window.addEventListener("resize",function(){ clearTimeout(rz); rz=setTimeout(function(){ renderCharts(); },150); });
 window.addEventListener("hashchange",route);
+
+/* ============ my details ============ */
+function renderProfile(){
+  var q=st.profile, ids={age:"pf-age",weight:"pf-weight",height:"pf-height",about:"pf-about"};
+  Object.keys(ids).forEach(function(k){ var e=$(ids[k]); if(e&&document.activeElement!==e) e.value=q[k]==null?"":q[k]; });
+  var s="man"+(q.age?", "+q.age:"")+(q.weight?", "+q.weight+" kg":"")+(q.height?", "+q.height+" cm":"")+(q.about?", "+q.about:"")+", lifting 6 days a week, losing belly fat and building muscle";
+  var e=$("pr-about"); if(e) e.textContent=s+".";
+}
+$("profform").addEventListener("input",function(){
+  var q=st.profile;
+  q.age=$("pf-age").value; q.weight=$("pf-weight").value; q.height=$("pf-height").value; q.about=$("pf-about").value;
+  save(); renderProfile();
+});
+$("profform").addEventListener("submit",function(e){ e.preventDefault(); });
+renderProfile();
 
 /* ============ boot ============ */
 $("f-date").value=todayStr();
