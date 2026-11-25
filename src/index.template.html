@@ -352,7 +352,7 @@ function nextMonday(){ var t=new Date(); t=new Date(t.getFullYear(),t.getMonth()
 function fresh(){ return {profile:{age:27,weight:82,height:170,about:"desk job"},start:fmt(mondayOf(new Date())),done:{},test:{},ex:{},eat:{},checks:{},log:[{id:"base",date:todayStr(),weight:82,belly:40,waist:36,biceps:13,thigh:23.5,note:"baseline",base:true}]}; }
 var st;
 function load(){
-  try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; o.profile=o.profile||{age:27,weight:82,height:170,about:"desk job"}; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
+  try{ var r=localStorage.getItem(KEY); if(r){ var o=JSON.parse(r); if(o&&Array.isArray(o.log)){ o.done=o.done||{}; o.test=o.test||{}; o.ex=o.ex||{}; o.eat=o.eat||{}; o.checks=o.checks||{}; o.profile=o.profile||{age:27,weight:82,height:170,about:"desk job"}; var cm=fmt(mondayOf(new Date())); if(o.start>cm && !Object.keys(o.done).length && !Object.keys(o.ex).length && !Object.keys(o.eat).length && o.log.length<2) o.start=cm; if(o.theme==="day") o.theme="light"; else if(o.theme!=="light"&&o.theme!=="dark") delete o.theme; return o; } } }
   catch(e){ canStore=false; }
   return fresh();
 }
