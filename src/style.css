@@ -490,3 +490,23 @@ header{flex-wrap:nowrap}
 .dd.now i{outline:2px solid var(--ink);outline-offset:1px}
 @media(prefers-reduced-motion:reduce){.dr .bar i{transition:none}}
 .trow{align-items:start}
+
+/* exercise how-to */
+.exn{all:unset;cursor:pointer;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;text-decoration-color:var(--line2)}
+.exn:hover{text-decoration-color:currentColor}
+.exn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.exn.alt{color:var(--pri);font-weight:600}
+.ex b .exn{font-weight:600}
+dialog#exdlg{width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:0;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog#exdlg::backdrop{background:rgba(10,12,30,.55)}
+.exd{padding:18px;overflow:auto;max-height:calc(100dvh - 26px)}
+.exd-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.exd-h h3{font:700 19px/1.25 var(--f-body)}
+.exd-h button{min-height:40px;min-width:64px}
+.exd-m{display:grid;gap:10px;margin-bottom:6px}
+.exd-m small{display:block;font-size:12.5px;color:var(--mute);font-weight:600;margin-bottom:4px}
+.mus{display:inline-block;margin:0 6px 6px 0;padding:5px 11px;border-radius:99px;background:var(--soft);border:1px solid var(--line);font:600 13px var(--f-body);text-transform:capitalize}
+.exd-m div:first-child .mus{background:color-mix(in srgb,var(--pull) 16%,var(--card));border-color:color-mix(in srgb,var(--pull) 40%,var(--line))}
+.exd-s{margin:12px 0 14px;padding-left:22px;display:grid;gap:8px;font-size:15px;line-height:1.5}
+.exd-i{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.exd-i img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:var(--soft);aspect-ratio:4/3;object-fit:cover}
